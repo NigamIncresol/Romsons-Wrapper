@@ -1,0 +1,185 @@
+[
+  
+  {
+    "app": "Auth Service / Secondary User Management",
+    "name": "Login User",
+    "method": "POST",
+    "endpoint": "/api/auth/login",
+    "implemented": true,
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=690",
+    "requestPayload": {
+      "employeeId": "string",
+      "password": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "plant": "9104",
+        "employeeId": "0000000005",
+        "password": "Welcome@123",
+        "status": "S",
+        "message": "Login successful",
+        "isDefaultPassword": "X",
+        "sessionId": "3339BDDC29BA1FD194E926125AA7C0BF"
+      }
+    },
+    "Note":"If in response status is 'S' and isDefaultPassword is 'X', it means the user has logged in with a default password and must change it. The user should be prompted to change their password immediately after login to ensure account security. Also if the status is 'S' and isDefaultPassword is not 'X', it means the user has logged in successfully with a non-default password. Then the user can proceed to access the application features without being forced to change their password. If the status is 'E', it indicates the password is expired and the user must change it before logging in. The user should be prompted to change their password through forgot password to ensure account security."
+  },
+  {
+    "app": "Auth Service / Secondary User Management",
+    "name": "Logout User",
+    "method": "PUT",
+    "endpoint": "/api/auth/logout",
+    "implemented": true,
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet(employeeId='{employeeId}',plant='{plant}')?sap-client=690",
+    "requestPayload": {
+      "employeeId": "string",
+      "sessionId": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "response": "204 no content"
+      }
+    }
+  },
+  {
+    "app": "Auth Service / Secondary User Management",
+    "name": "Change Password",
+    "method": "POST",
+    "endpoint": "/api/auth/change-password",
+    "implemented": true,
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ChangePasswordSet?sap-client=690",
+    "requestPayload": {
+      "employeeId": "string",
+      "oldPassword": "string",
+      "newPassword": "string",
+      "confirmPassword": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "plant": "9104",
+        "employeeId": "0000000005",
+        "oldPassword": "Welcome@123",
+        "newPassword": "Nigam@123",
+        "confirmPassword": "Nigam@123",
+        "status": "S",
+        "message": "Password changed successfully"
+      }
+    }
+  },
+  {
+    "app": "Auth Service / Secondary User Management",
+    "name": "Forgot Password Send OTP",
+    "method": "POST",
+    "endpoint": "/api/auth/forgot-password-send-OTP",
+    "implemented": true,
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet?sap-client=690",
+    "requestPayload": {
+      "employeeID": "string",
+      "Email": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "plant": "9104",
+        "employeeID": "0000000005",
+        "Email": "nigam.chinhara@incresol.com",
+        "status": "S",
+        "Message": "OTP sent to registered email",
+        "password": "",
+        "Otp": 0
+      }
+    }
+  },
+  {
+    "app": "Auth Service / Secondary User Management",
+    "name": "Forgot Password Submit OTP",
+    "method": "PUT",
+    "endpoint": "/api/auth/forgot-password-submit-OTP",
+    "implemented": true,
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet(employeeId='{employeeId}',plant='{plant}')?sap-client=690",
+    "requestPayload": {
+      "employeeID": "string",
+      "Otp": "string",
+      "password": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "response": "204 No Content"
+       
+      }
+    }
+  },
+{
+  "app": "Production Orders",
+  "name": "Get Production Orders List",
+  "method": "GET",
+  "implemented":true,
+  "endpoint": "/api/productionOrder/getProductionOrders/:employeeId/:plant/:sessionId",
+  "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+  "requestParams": {
+    "employeeId": "string",
+    "plant": "string",
+    "sessionId": "string"
+  },
+  "response": {
+    "d": {
+      "results": [
+         {
+            "employeeId": "0000000005",
+            "progress": "100.00",
+            "sessionId": "",
+            "colorCode": "RED",
+            "plant": "9104",
+            "orderCategory": "10",
+            "statusBadge": "DELAYED",
+            "order": "1029439",
+            "orderStatus": "DLV",
+            "material": "RWBWM10PKT",
+            "materialDesc": "DIGNITY WIPAX BODY WIPES 10s (24x30)",
+            "batch": "G25D038754",
+            "houseId": "0003",
+            "houseDesc": "house testing 3",
+            "orderType": "ZP01",
+            "startDate": "/Date(1744070400000)/",
+            "finishDate": "/Date(1744070400000)/",
+            "quantity": "10944.000",
+            "completedQty": "10944.000",
+            "pendingQty": "0.000",
+            "unit": "PKT"
+        }
+      ]
+    }
+  }
+},
+{
+  "app": "Production Orders",
+  "name": "Get Production Order Summary",
+  "method": "GET",
+  "endpoint": "/api/productionOrder/getProductionOrderSummary/:employeeId/:plant/:sessionId",
+  "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderSummaryListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+  "requestParams": {
+    "employeeId": "string",
+    "plant": "string",
+    "sessionId": "string"
+  },
+  "response": {
+    "results": [
+      {
+        "employeeId": "0000000005",
+        "sessionId": "",
+        "plant": "9104",
+        "houseId": "0003",
+        "houseDesc": "house testing 3",
+        "totalOrders": 144,
+        "compltedOrders": 130,
+        "delayedOrders": 144,
+        "averageProgress": "90.28"
+      }
+    ]
+  }
+}
+]

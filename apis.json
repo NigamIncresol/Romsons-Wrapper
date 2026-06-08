@@ -1,5 +1,4 @@
 [
-  
   {
     "app": "Auth Service / Secondary User Management",
     "name": "Login User",
@@ -23,7 +22,7 @@
         "sessionId": "3339BDDC29BA1FD194E926125AA7C0BF"
       }
     },
-    "Note":"If in response status is 'S' and isDefaultPassword is 'X', it means the user has logged in with a default password and must change it. The user should be prompted to change their password immediately after login to ensure account security. Also if the status is 'S' and isDefaultPassword is not 'X', it means the user has logged in successfully with a non-default password. Then the user can proceed to access the application features without being forced to change their password. If the status is 'E', it indicates the password is expired and the user must change it before logging in. The user should be prompted to change their password through forgot password to ensure account security."
+    "Note": "If in response status is 'S' and isDefaultPassword is 'X', it means the user has logged in with a default password and must change it. The user should be prompted to change their password immediately after login to ensure account security. Also if the status is 'S' and isDefaultPassword is not 'X', it means the user has logged in successfully with a non-default password. Then the user can proceed to access the application features without being forced to change their password. If the status is 'E', it indicates the password is expired and the user must change it before logging in. The user should be prompted to change their password through forgot password to ensure account security."
   },
   {
     "app": "Auth Service / Secondary User Management",
@@ -109,26 +108,25 @@
     "response": {
       "d": {
         "response": "204 No Content"
-       
       }
     }
   },
-{
-  "app": "Production Orders",
-  "name": "Get Production Orders List",
-  "method": "GET",
-  "implemented":true,
-  "endpoint": "/api/productionOrder/getProductionOrders/:employeeId/:plant/:sessionId",
-  "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
-  "requestParams": {
-    "employeeId": "string",
-    "plant": "string",
-    "sessionId": "string"
-  },
-  "response": {
-    "d": {
-      "results": [
-         {
+  {
+    "app": "Production Orders",
+    "name": "Get Production Orders List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionOrder/getProductionOrders/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
             "employeeId": "0000000005",
             "progress": "100.00",
             "sessionId": "",
@@ -150,36 +148,87 @@
             "completedQty": "10944.000",
             "pendingQty": "0.000",
             "unit": "PKT"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Production Orders",
+    "name": "Get Production Order Summary",
+    "method": "GET",
+    "endpoint": "/api/productionOrder/getProductionOrderSummary/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderSummaryListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {
+      "results": [
+        {
+          "employeeId": "0000000005",
+          "sessionId": "",
+          "plant": "9104",
+          "houseId": "0003",
+          "houseDesc": "house testing 3",
+          "totalOrders": 144,
+          "compltedOrders": 130,
+          "delayedOrders": 144,
+          "averageProgress": "90.28"
+        }
+      ]
+    }
+  },
+  {
+    "app": "Operator Assignment",
+    "name": "Get Operation List",
+    "method": "GET",
+    "endpoint": "api/operatorAssignment/getOperationList/:Aufnr",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?$filter=Aufnr eq '1035863'",
+    "requestParams": {
+      "Aufnr": "string"
+    },
+    "response": {
+      "results": [
+        {
+          "Aufnr": "1035863",
+          "Sesid": "",
+          "Vornr": "0010",
+          "Empid": "0000000000",
+          "Ltxa1": "secondary packing",
+          "Werks": "",
+          "Mgvrg": "11",
+          "Asvrg": "0",
+          "Vorme": "BOX",
+          "Gmnga": "0"
+        }
+      ]
+    }
+  },
+  {
+    "app": "Operator Assignment",
+    "name": "Get Operator List",
+    "method": "GET",
+    "endpoint": "api/operatorAssignment/getOperatorList/:Werks/:HouseId/:ShiftId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?$filter=Werks eq '9104' and HouseId eq '3' and ShiftId eq '1'",
+    "requestParams": {
+      "Werks": "string",
+      "HouseId": "string",
+      "ShiftId": "string"
+    },
+    "response": {
+      "results": [
+        {
+          "Empid": "0000000001",
+          "Ename": "Balu",
+          "Werks": "9104",
+          "RoleDesc": "Man Power or Operator",
+          "HouseId": "0003",
+          "ShiftId": "001",
+          "HouseDesc": "house testing 3"
         }
       ]
     }
   }
-},
-{
-  "app": "Production Orders",
-  "name": "Get Production Order Summary",
-  "method": "GET",
-  "endpoint": "/api/productionOrder/getProductionOrderSummary/:employeeId/:plant/:sessionId",
-  "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderSummaryListSet?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
-  "requestParams": {
-    "employeeId": "string",
-    "plant": "string",
-    "sessionId": "string"
-  },
-  "response": {
-    "results": [
-      {
-        "employeeId": "0000000005",
-        "sessionId": "",
-        "plant": "9104",
-        "houseId": "0003",
-        "houseDesc": "house testing 3",
-        "totalOrders": 144,
-        "compltedOrders": 130,
-        "delayedOrders": 144,
-        "averageProgress": "90.28"
-      }
-    ]
-  }
-}
 ]

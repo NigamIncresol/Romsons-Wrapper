@@ -19,7 +19,6 @@ function escapeForTemplateLiteral(str) {
 }
 
 router.get("/", (req, res) => {
-
   // GROUP BY APP
   const grouped = apis.reduce((acc, api) => {
     acc[api.app] = acc[api.app] || [];
@@ -30,29 +29,48 @@ router.get("/", (req, res) => {
   const totalApis = apis.length;
   const totalApps = Object.keys(grouped).length;
 
-  const groupedHtml = Object.keys(grouped).map(app => `
+  const groupedHtml = Object.keys(grouped)
+    .map(
+      (app) => `
     <div class="section">
       <div class="section-header">
         <span class="section-title">${app}</span>
         <span class="section-count">${grouped[app].length}</span>
       </div>
       <div class="cards-grid">
-        ${grouped[app].map((api, idx) => {
-          const cardId        = `card-${app.replace(/\s+/g, "-")}-${idx}`;
-          const payload       = api.requestPayload  ? JSON.stringify(api.requestPayload,  null, 2) : null;
-          const response      = api.response        ? JSON.stringify(api.response,        null, 2) : null;
-          const requestParams = api.requestParams   ? JSON.stringify(api.requestParams,   null, 2) : null;
-          const requestQuery  = api.requestQuery    ? JSON.stringify(api.requestQuery,    null, 2) : null;
-          const odataEndpoint = api.odataV2Endpoint || null;
-          const note          = api.Note || "";
+        ${grouped[app]
+          .map((api, idx) => {
+            const cardId = `card-${app.replace(/\s+/g, "-")}-${idx}`;
+            const payload = api.requestPayload
+              ? JSON.stringify(api.requestPayload, null, 2)
+              : null;
+            const response = api.response
+              ? JSON.stringify(api.response, null, 2)
+              : null;
+            const requestParams = api.requestParams
+              ? JSON.stringify(api.requestParams, null, 2)
+              : null;
+            const requestQuery = api.requestQuery
+              ? JSON.stringify(api.requestQuery, null, 2)
+              : null;
+            const odataEndpoint = api.odataV2Endpoint || null;
+            const note = api.Note || "";
 
-          const payloadEsc      = payload      ? escapeForTemplateLiteral(payload)      : "";
-          const responseEsc     = response     ? escapeForTemplateLiteral(response)     : "";
-          const paramsEsc       = requestParams ? escapeForTemplateLiteral(requestParams) : "";
-          const queryEsc        = requestQuery  ? escapeForTemplateLiteral(requestQuery)  : "";
-          const odataEsc        = odataEndpoint ? escapeForTemplateLiteral(odataEndpoint) : "";
+            const payloadEsc = payload ? escapeForTemplateLiteral(payload) : "";
+            const responseEsc = response
+              ? escapeForTemplateLiteral(response)
+              : "";
+            const paramsEsc = requestParams
+              ? escapeForTemplateLiteral(requestParams)
+              : "";
+            const queryEsc = requestQuery
+              ? escapeForTemplateLiteral(requestQuery)
+              : "";
+            const odataEsc = odataEndpoint
+              ? escapeForTemplateLiteral(odataEndpoint)
+              : "";
 
-          return `
+            return `
           <div class="api-card" id="${cardId}"
                data-name="${api.name.toLowerCase()}"
                data-endpoint="${api.endpoint.toLowerCase()}"
@@ -64,9 +82,10 @@ router.get("/", (req, res) => {
               <div class="card-info">
                 <div class="card-name">
                   ${api.name}
-                  ${api.implemented === true
-                    ? `<span class="impl-badge impl-yes" title="Implemented in frontend">✓ Implemented</span>`
-                    : `<span class="impl-badge impl-no" title="Not yet implemented in frontend">✗ Not Implemented</span>`
+                  ${
+                    api.implemented === true
+                      ? `<span class="impl-badge impl-yes" title="Implemented in frontend">✓ Implemented</span>`
+                      : `<span class="impl-badge impl-no" title="Not yet implemented in frontend">✗ Not Implemented</span>`
                   }
                 </div>
                 <div class="card-endpoint">${api.endpoint}</div>
@@ -83,7 +102,9 @@ router.get("/", (req, res) => {
             <div class="expand-panel" id="panel-${cardId}">
               <div class="panel-inner">
 
-                ${note ? `
+                ${
+                  note
+                    ? `
                 <!-- Note -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -92,9 +113,13 @@ router.get("/", (req, res) => {
                   </div>
                   <div class="note-box">${escapeHtml(note)}</div>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
-                ${odataEndpoint ? `
+                ${
+                  odataEndpoint
+                    ? `
                 <!-- oData V2 Endpoint -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -106,9 +131,13 @@ router.get("/", (req, res) => {
                     <span class="odata-text odata-wrap">${escapeHtml(odataEndpoint)}</span>
                   </div>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
-                ${requestParams ? `
+                ${
+                  requestParams
+                    ? `
                 <!-- Request Params -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -118,9 +147,13 @@ router.get("/", (req, res) => {
                   </div>
                   <pre class="panel-code json-block">${escapeHtml(requestParams)}</pre>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
-                ${requestQuery ? `
+                ${
+                  requestQuery
+                    ? `
                 <!-- Request Query -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -130,9 +163,13 @@ router.get("/", (req, res) => {
                   </div>
                   <pre class="panel-code json-block">${escapeHtml(requestQuery)}</pre>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
-                ${payload ? `
+                ${
+                  payload
+                    ? `
                 <!-- Request Payload -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -142,9 +179,13 @@ router.get("/", (req, res) => {
                   </div>
                   <pre class="panel-code json-block">${escapeHtml(payload)}</pre>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
-                ${response ? `
+                ${
+                  response
+                    ? `
                 <!-- Response -->
                 <div class="panel-section">
                   <div class="panel-label">
@@ -154,17 +195,22 @@ router.get("/", (req, res) => {
                   </div>
                   <pre class="panel-code json-block">${escapeHtml(response)}</pre>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
 
               </div>
             </div>
 
           </div>
           `;
-        }).join("")}
+          })
+          .join("")}
       </div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   res.send(`
 <!DOCTYPE html>
@@ -389,13 +435,21 @@ router.get("/", (req, res) => {
 
     /* ── Full endpoint visibility (wraps instead of truncating) ── */
     .card-endpoint {
-      font-size: 12px; color: var(--text-muted);
-      font-family: 'Space Mono', monospace;
-      word-break: break-all;
-      white-space: normal;
-      margin-top: 2px;
-      line-height: 1.5;
-    }
+  font-size: 13px;
+  font-weight: 700;
+  color: #030303;
+  font-family: 'Space Mono', monospace;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  line-height: 1.6;
+  word-break: break-all;
+  white-space: normal;
+  display: inline-block;
+  width: 100%;
+}
 
     .card-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
 

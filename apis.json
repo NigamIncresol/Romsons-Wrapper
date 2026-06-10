@@ -225,6 +225,31 @@
   },
   {
     "app": "Operator Assignment",
+    "name": "Get Shift List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/operatorAssignment/getShiftList/:plant",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/shiftSet?sap-client=690&$filter=plant eq '{plant}'",
+    "requestParams": {
+      "plant": "string"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
+            "plant": "9104",
+            "employeeId": "0000000000",
+            "shiftId": "001",
+            "sessionId": "",
+            "StartTime": "PT00H00M00S",
+            "EndTime": "PT12H00M00S"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Operator Assignment",
     "name": "Get Operation List",
     "method": "GET",
     "endpoint": "api/operatorAssignment/getOperationList/:orderId",
@@ -274,6 +299,61 @@
           "houseDesc": "house testing 3"
         }
       ]
+    }
+  },
+  {
+    "app": "Operator Assignment",
+    "name": "Get Operator Assignment List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/operatorAssignment/getOperatorAssignmentList/:order/:shiftId/:shiftDate",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690&$filter=order eq '{order}' and shiftId eq '{shiftId}' and shiftDate eq datetime'{shiftDate}'",
+    "requestParams": {
+      "order": "string",
+      "shiftId": "string",
+      "shiftDate": "string (ISO format: 2026-06-10T00:00:00)"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
+            "order": "10001634",
+            "plant": "",
+            "shiftDate": "2026-06-10T00:00:00",
+            "sessionId": "",
+            "operation": "0020",
+            "shiftId": "001",
+            "status": "ACTIVE",
+            "employeeId": "0000000001",
+            "houseId": "0000",
+            "plannedHrs": "PT00H00M00S",
+            "freeHrs": "PT00H00M00S",
+            "targetQty": "0.000",
+            "unit": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Operator Assignment",
+    "name": "Update Operator Assignment",
+    "method": "PUT",
+    "implemented": true,
+    "endpoint": "/api/operatorAssignment/updateOperatorAssignment",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='{order}',operation='{operation}',shiftId='{shiftId}',employeeId='{employeeId}')?sap-client=690",
+    "requestPayload": {
+      "order": "1035863",
+      "shiftId": "1",
+      "employeeId": "2",
+      "operation": "0010",
+      "plannedHrs": "PT08H00M00S",
+      "freeHrs": "PT04H00M00S"
+    },
+    "response": {
+      "d": {
+        "response": "204 No Content"
+      }
     }
   },
   {

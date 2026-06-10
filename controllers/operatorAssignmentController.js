@@ -5,14 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.getOperationList = async (req, res) => {
-  const { Aufnr } = req.params;
+  const { orderId } = req.params;
 
   try {
     const response = await axios.get(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?sap-client=690",
       {
         params: {
-          $filter: `Aufnr eq '${Aufnr}'`,
+          $filter: `order eq '${orderId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -40,14 +40,14 @@ exports.getOperationList = async (req, res) => {
 };
 
 exports.getOperatorList = async (req, res) => {
-  const { Werks, HouseId, ShiftId } = req.params;
+  const { plant, houseId, shiftId } = req.params;
 
   try {
     const response = await axios.get(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690",
       {
         params: {
-          $filter: `Werks eq '${Werks}' and HouseId eq '${HouseId}' and ShiftId eq '${ShiftId}'`,
+          $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -70,6 +70,55 @@ exports.getOperatorList = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch operation list",
+    });
+  }
+};
+
+exports.assignOperator = async (req, res) => {
+  const { order, shiftId, employeeId, operation } = req.body || {};
+
+  // Basic validation: fail fast if required fields are missing
+  if (!order || !shiftId || !employeeId || !operation) {
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields: order, shiftId, employeeId, operation",
+    });
+  }
+
+  try {
+    const response = await axios.post(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690",
+      {
+        order,
+        shiftId,
+        employeeId,
+        operation,
+      },
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    // SAP OData typically wraps result in response.data.d, but keep fallback
+    return res.status(200).json(response.data?.d ?? response.data);
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to assign operator",
+      details: error?.response?.data ?? error?.message,
     });
   }
 };

@@ -155,6 +155,49 @@
   },
   {
     "app": "Production Orders",
+    "name": "Get Single Production Orders By OrderId",
+    "method": "GET",
+    "implemented": false,
+    "endpoint": "/api/productionOrder/getProductionOrder/:employeeId/:plant/:sessionId/:orderId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('10001634')?sap-client=690&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "orderId": "string"
+    },
+    "response": {
+      "employeeId": "0000000000",
+      "IsMouldOrder": "X",
+      "MouldId": "0000000000",
+      "MouldDesc": "",
+      "progress": "100.00",
+      "MouldCavity": "0000",
+      "sessionId": "",
+      "colorCode": "RED",
+      "MinCycleTime": 0,
+      "MaxCycleTime": 0,
+      "plant": "6302",
+      "orderCategory": "10",
+      "statusBadge": "DELAYED",
+      "order": "10001634",
+      "orderStatus": "DLV",
+      "material": "MLD000055",
+      "materialDesc": "MICRO MOUNT MIRMO3HA",
+      "batch": "200127412",
+      "houseId": "0000",
+      "houseDesc": "",
+      "orderType": "ZP02",
+      "startDate": "/Date(1580083200000)/",
+      "finishDate": "/Date(1580083200000)/",
+      "quantity": "148126.000",
+      "completedQty": "148126.000",
+      "pendingQty": "0.000",
+      "unit": "PCS"
+    }
+  },
+  {
+    "app": "Production Orders",
     "name": "Get Production Order Summary",
     "method": "GET",
     "endpoint": "/api/productionOrder/getProductionOrderSummary/:employeeId/:plant/:sessionId",
@@ -184,24 +227,25 @@
     "app": "Operator Assignment",
     "name": "Get Operation List",
     "method": "GET",
-    "endpoint": "api/operatorAssignment/getOperationList/:Aufnr",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?$filter=Aufnr eq '1035863'",
+    "endpoint": "api/operatorAssignment/getOperationList/:orderId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?$filter=order eq '1035863'",
     "requestParams": {
-      "Aufnr": "string"
+      "orderId": "string"
     },
     "response": {
       "results": [
         {
-          "Aufnr": "1035863",
-          "Sesid": "",
-          "Vornr": "0010",
-          "Empid": "0000000000",
-          "Ltxa1": "secondary packing",
-          "Werks": "",
-          "Mgvrg": "11",
-          "Asvrg": "0",
-          "Vorme": "BOX",
-          "Gmnga": "0"
+          "AssignedOperators": "0000",
+          "order": "1035863",
+          "sessioId": "",
+          "employeeId": "0000000000",
+          "operation": "0010",
+          "operationDesc": "secondary packing",
+          "plant": "",
+          "quantity": "11",
+          "scrapQty": "0",
+          "unit": "BOX",
+          "yieldQty": "0"
         }
       ]
     }
@@ -210,8 +254,8 @@
     "app": "Operator Assignment",
     "name": "Get Operator List",
     "method": "GET",
-    "endpoint": "api/operatorAssignment/getOperatorList/:Werks/:HouseId/:ShiftId",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?$filter=Werks eq '9104' and HouseId eq '3' and ShiftId eq '1'",
+    "endpoint": "api/operatorAssignment/getOperatorList/:plant/:houseId/:shiftId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?$filter=plant eq '9104' and houseId eq '3' and shiftId eq '1'",
     "requestParams": {
       "Werks": "string",
       "HouseId": "string",
@@ -220,15 +264,41 @@
     "response": {
       "results": [
         {
-          "Empid": "0000000001",
-          "Ename": "Balu",
-          "Werks": "9104",
-          "RoleDesc": "Man Power or Operator",
-          "HouseId": "0003",
-          "ShiftId": "001",
-          "HouseDesc": "house testing 3"
+          "employeeId": "0000000006",
+          "sessionId": "",
+          "employeeName": "Satish",
+          "plant": "9104",
+          "roleDesc": "House Owner",
+          "houseId": "0003",
+          "shiftId": "001",
+          "houseDesc": "house testing 3"
         }
       ]
+    }
+  },
+  {
+    "app": "Operator Assignment",
+    "name": "Assign Operator to Operation",
+    "method": "POST",
+    "endpoint": "api/operatorAssignment/assignOperator",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet",
+    "requestPayload": {
+      "order": "1035863",
+      "shiftId": "1",
+      "employeeId": "1",
+      "operation": "0010"
+    },
+    "response": {
+      "results": {
+        "employeeId": "0000000005",
+        "sessionId": "",
+        "employeeName": "Nigam",
+        "plant": "9104",
+        "roleDesc": "Production Planning and Controller",
+        "houseId": "0003",
+        "shiftId": "001",
+        "houseDesc": "house testing 3"
+      }
     }
   }
 ]

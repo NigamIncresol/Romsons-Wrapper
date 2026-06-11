@@ -363,10 +363,19 @@
     "endpoint": "api/operatorAssignment/assignOperator",
     "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet",
     "requestPayload": {
-      "order": "1035863",
-      "shiftId": "1",
-      "employeeId": "1",
-      "operation": "0010"
+      "order": "10001634",
+      "plant": "",
+      "shiftDate": null,
+      "sessionId": "",
+      "operation": "0010",
+      "shiftId": "002",
+      "status": "",
+      "employeeId": "0000000004",
+      "houseId": "0000",
+      "plannedHrs": "PT00H00M00S",
+      "freeHrs": "PT00H00M00S",
+      "targetQty": "0.000",
+      "unit": ""
     },
     "response": {
       "results": {

@@ -187,7 +187,21 @@ exports.updateOperatorAssignment = async (req, res) => {
 };
 
 exports.assignOperator = async (req, res) => {
-  const { order, shiftId, employeeId, operation } = req.body || {};
+  const {
+    order,
+    plant,
+    shiftDate,
+    sessionId,
+    operation,
+    shiftId,
+    status,
+    employeeId,
+    houseId,
+    plannedHrs,
+    freeHrs,
+    targetQty,
+    unit,
+  } = req.body || {};
 
   // Basic validation: fail fast if required fields are missing
   if (!order || !shiftId || !employeeId || !operation) {
@@ -202,9 +216,18 @@ exports.assignOperator = async (req, res) => {
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690",
       {
         order,
-        shiftId,
-        employeeId,
+        plant,
+        shiftDate,
+        sessionId,
         operation,
+        shiftId,
+        status,
+        employeeId,
+        houseId,
+        plannedHrs,
+        freeHrs,
+        targetQty,
+        unit,
       },
       {
         httpsAgent: new https.Agent({

@@ -145,7 +145,16 @@ exports.getOperatorAssignmentList = async (req, res) => {
 };
 
 exports.updateOperatorAssignment = async (req, res) => {
-  const { order, shiftId, employeeId, operation, plannedHrs, freeHrs } = req.body || {};
+  const {
+    order,
+    shiftId,
+    employeeId,
+    operation,
+    plannedHrs,
+    freeHrs,
+    targetQty,
+    shiftDate,
+  } = req.body || {};
 
   if (!order || !shiftId || !employeeId || !operation) {
     return res.status(400).json({
@@ -157,7 +166,16 @@ exports.updateOperatorAssignment = async (req, res) => {
   try {
     await axios.put(
       `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='${order}',operation='${operation}',shiftId='${shiftId}',employeeId='${employeeId}')?sap-client=690`,
-      { order, shiftId, employeeId, operation, plannedHrs, freeHrs },
+      {
+        order,
+        shiftId,
+        employeeId,
+        operation,
+        plannedHrs,
+        freeHrs,
+        shiftDate,
+        targetQty,
+      },
       {
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,

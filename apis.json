@@ -348,7 +348,9 @@
       "employeeId": "2",
       "operation": "0010",
       "plannedHrs": "PT08H00M00S",
-      "freeHrs": "PT04H00M00S"
+      "freeHrs": "PT04H00M00S",
+      "shiftDate": "2026-06-10T00:00:00",
+      "targetQty": "100.000"
     },
     "response": {
       "d": {

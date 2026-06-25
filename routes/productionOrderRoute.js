@@ -37,4 +37,15 @@ router.get(
   },
 );
 
+router.get(
+  "/getProductionOrderFilterValues/:employeeId/:plant",
+  async (req, res) => {
+    console.log(
+      "🟢 Get Production Order Filter Values request received",
+      "/productionOrder/getProductionOrderFilterValues",
+    );
+    await productionOrderController.getProductionOrderFilterValues(req, res);
+  },
+);
+
 module.exports = router;

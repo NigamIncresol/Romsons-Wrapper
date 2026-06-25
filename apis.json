@@ -224,6 +224,45 @@
     }
   },
   {
+    "app": "Production Orders",
+    "name": "Get Production Order Filter Values",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionOrder/getProductionOrderFilterValues/:employeeId/:plant",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/zprd_details?plant={plant}&employee_code={employeeId}&sap-client=690",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string"
+    },
+    "response": {
+      "houses": [
+        {
+          "house_id": "0003",
+          "house_desc": "house testing 3"
+        }
+      ],
+      "materials": [
+        {
+          "matnr": "TLRAD",
+          "maktx": "TRIAL ADULT DIAPER"
+        }
+      ],
+      "family": [
+        ""
+      ],
+      "order_type": [
+        "Fertigungsauftrag Standard"
+      ],
+      "production_orders": [
+        "000001035840"
+      ],
+      "production_order_status": [
+        "DLV",
+        "REL"
+      ]
+    }
+  },
+  {
     "app": "Operator Assignment",
     "name": "Get Shift List",
     "method": "GET",

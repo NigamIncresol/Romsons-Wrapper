@@ -73,6 +73,43 @@ exports.getProductionOrder = async (req, res) => {
     });
   }
 };
+exports.getProductionOrderFilterValues = async (req, res) => {
+  const { employeeId, plant } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/zprd_details",
+      {
+        params: {
+          plant,
+          employee_code: employeeId,
+          "sap-client": "690",
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch production order filter values",
+    });
+  }
+};
+
 exports.getProductionOrderSummary = async (req, res) => {
   const { employeeId, plant, sessionId } = req.params;
 

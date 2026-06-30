@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const operatorAssignmentController = require("../controllers/operatorAssignmentController");
 
-router.get("/getOperationList/:orderId", async (req, res) => {
+router.get("/getOperationList/:employeeId/:plant/:sessionId/:orderId", async (req, res) => {
   console.log(
     "🟢 Get OperationList request received",
     "/operatorAssignment/getOperationList",
@@ -18,7 +18,7 @@ router.get("/getShiftList/:plant", async (req, res) => {
   await operatorAssignmentController.getShiftList(req, res);
 });
 
-router.get("/getOperatorList/:plant/:houseId/:shiftId", async (req, res) => {
+router.get("/getOperatorList/:employeeId/:plant/:sessionId/:houseId/:shiftId", async (req, res) => {
   console.log(
     "🟢 Get Operator List request received",
     "/operatorAssignment/getOperatorList",
@@ -26,7 +26,7 @@ router.get("/getOperatorList/:plant/:houseId/:shiftId", async (req, res) => {
   await operatorAssignmentController.getOperatorList(req, res);
 });
 
-router.get("/getOperatorAssignmentList/:order/:shiftId/:shiftDate", async (req, res) => {
+router.get("/getOperatorAssignmentList/:employeeId/:plant/:sessionId/:order/:shiftId/:shiftDate", async (req, res) => {
   console.log(
     "🟢 Get Operator Assignment List request received",
     "/operatorAssignment/getOperatorAssignmentList",

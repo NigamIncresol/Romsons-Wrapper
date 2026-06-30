@@ -5,14 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.getOperationList = async (req, res) => {
-  const { orderId } = req.params;
+  const { orderId, employeeId, plant, sessionId } = req.params;
 
   try {
     const response = await axios.get(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?sap-client=690",
       {
         params: {
-          $filter: `order eq '${orderId}'`,
+          $filter: `order eq '${orderId}' and employeeId eq '${employeeId}' and plant eq '${plant}' and sessioId eq '${sessionId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -34,20 +34,21 @@ exports.getOperationList = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch operation list",
     });
   }
 };
 
 exports.getOperatorList = async (req, res) => {
-  const { plant, houseId, shiftId } = req.params;
+  const { plant, houseId, shiftId, employeeId, sessionId } = req.params;
 
   try {
     const response = await axios.get(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690",
       {
         params: {
-          $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}'`,
+          $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}' and employeeId eq '${employeeId}' and sessionId eq '${sessionId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -69,7 +70,8 @@ exports.getOperatorList = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch operation list",
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch operator list",
     });
   }
 };
@@ -104,20 +106,22 @@ exports.getShiftList = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch shift list",
     });
   }
 };
 
 exports.getOperatorAssignmentList = async (req, res) => {
-  const { order, shiftId, shiftDate } = req.params;
+  const { order, shiftId, shiftDate, employeeId, plant, sessionId } =
+    req.params;
 
   try {
     const response = await axios.get(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690",
       {
         params: {
-          $filter: `order eq '${order}' and shiftId eq '${shiftId}' and shiftDate eq datetime'${shiftDate}'`,
+          $filter: `order eq '${order}' and shiftId eq '${shiftId}' and shiftDate eq datetime'${shiftDate}' and employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -139,6 +143,7 @@ exports.getOperatorAssignmentList = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch operator assignment list",
     });
   }
@@ -154,6 +159,8 @@ exports.updateOperatorAssignment = async (req, res) => {
     freeHrs,
     targetQty,
     shiftDate,
+    sessionId,
+    plant,
   } = req.body || {};
 
   if (!order || !shiftId || !employeeId || !operation) {
@@ -175,6 +182,8 @@ exports.updateOperatorAssignment = async (req, res) => {
         freeHrs,
         shiftDate,
         targetQty,
+        sessionId,
+        plant,
       },
       {
         httpsAgent: new https.Agent({
@@ -198,8 +207,8 @@ exports.updateOperatorAssignment = async (req, res) => {
     console.error("Error:", error);
     return res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to update operator assignment",
-      details: error?.response?.data ?? error?.message,
     });
   }
 };
@@ -270,8 +279,8 @@ exports.assignOperator = async (req, res) => {
     console.error("Error:", error);
     return res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to assign operator",
-      details: error?.response?.data ?? error?.message,
     });
   }
 };

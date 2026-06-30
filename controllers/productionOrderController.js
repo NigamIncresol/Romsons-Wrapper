@@ -34,6 +34,7 @@ exports.getProductionOrders = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch production order list",
     });
   }
@@ -69,7 +70,8 @@ exports.getProductionOrder = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch production order list",
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch production order",
     });
   }
 };
@@ -105,6 +107,7 @@ exports.getProductionOrderFilterValues = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch production order filter values",
     });
   }
@@ -140,6 +143,7 @@ exports.getProductionOrderSummary = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
       success: false,
+      error: error?.response?.data ?? error?.message,
       message: "Failed to fetch production order summary",
     });
   }

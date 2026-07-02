@@ -161,7 +161,10 @@ exports.updateOperatorAssignment = async (req, res) => {
     shiftDate,
     sessionId,
     plant,
+    status,
+    unit,
   } = req.body || {};
+  // console.log("req.body", req.body);
 
   if (!order || !shiftId || !employeeId || !operation) {
     return res.status(400).json({
@@ -184,6 +187,8 @@ exports.updateOperatorAssignment = async (req, res) => {
         targetQty,
         sessionId,
         plant,
+        status,
+        unit,
       },
       {
         httpsAgent: new https.Agent({

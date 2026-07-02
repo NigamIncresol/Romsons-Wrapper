@@ -263,6 +263,21 @@
     }
   },
   {
+    "app": "Materials",
+    "name": "Get Production Order Material List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/prodOrderMatList/:employeeId/:plant/:sessionId/:orderId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('{orderId}')?sap-client=690&$expand=npToComponents&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "orderId": "string"
+    },
+    "response": {}
+  },
+  {
     "app": "Operator Assignment",
     "name": "Get Shift List",
     "method": "GET",
@@ -401,7 +416,9 @@
       "shiftDate": "2026-06-10T00:00:00",
       "targetQty": "100.000",
       "sessionId": "string",
-      "plant": "string"
+      "plant": "string",
+      "status": "string",
+      "unit": "string"
     },
     "response": {
       "d": {

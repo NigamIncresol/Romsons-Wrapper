@@ -263,6 +263,23 @@
     }
   },
   {
+    "app": "Production Orders",
+    "name": "Release Production Order",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/productionOrder/releaseProdOrder",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+    "requestPayload": {
+      "order": "string",
+      "employeeId": "string",
+      "sessionId": "string",
+      "plant": "string"
+    },
+    "response": {
+      "d": {}
+    }
+  },
+  {
     "app": "Materials",
     "name": "Get Production Order Material List",
     "method": "GET",

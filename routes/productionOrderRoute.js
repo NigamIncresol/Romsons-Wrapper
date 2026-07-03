@@ -48,4 +48,12 @@ router.get(
   },
 );
 
+router.post("/releaseProdOrder", async (req, res) => {
+  console.log(
+    "🟢 Release Production Order request received",
+    "/productionOrder/releaseProdOrder",
+  );
+  await productionOrderController.releaseProdOrder(req, res);
+});
+
 module.exports = router;

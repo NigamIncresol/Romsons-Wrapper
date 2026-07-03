@@ -48,6 +48,14 @@ router.get(
   },
 );
 
+router.get("/printJobCard/:order/:shiftId/:shiftDate", async (req, res) => {
+  console.log(
+    "🟢 Print Job Card request received",
+    "/productionOrder/printJobCard",
+  );
+  await productionOrderController.printJobCard(req, res);
+});
+
 router.post("/releaseProdOrder", async (req, res) => {
   console.log(
     "🟢 Release Production Order request received",

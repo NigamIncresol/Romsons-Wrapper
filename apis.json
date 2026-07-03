@@ -264,6 +264,20 @@
   },
   {
     "app": "Production Orders",
+    "name": "Print Job Card",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionOrder/printJobCard/:order/:shiftId/:shiftDate",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardSet(order='{order}',shiftId='{shiftId}',shiftDt=datetime'{shiftDate}')/$value?sap-client=690",
+    "requestParams": {
+      "order": "string",
+      "shiftId": "string",
+      "shiftDate": "string (ISO format: 2026-07-02T00:00:00)"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Orders",
     "name": "Release Production Order",
     "method": "POST",
     "implemented": true,

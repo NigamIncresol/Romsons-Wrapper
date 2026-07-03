@@ -155,6 +155,39 @@ exports.releaseProdOrder = async (req, res) => {
   }
 };
 
+exports.printJobCard = async (req, res) => {
+  const { order, shiftId, shiftDate } = req.params;
+
+  try {
+    const response = await axios.get(
+      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardSet(order='${order}',shiftId='${shiftId}',shiftDt=datetime'${shiftDate}')/$value?sap-client=690`,
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to print job card",
+    });
+  }
+};
+
 exports.getProductionOrderSummary = async (req, res) => {
   const { employeeId, plant, sessionId } = req.params;
 

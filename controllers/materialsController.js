@@ -4,6 +4,44 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+exports.requestMaterials = async (req, res) => {
+  const body = req.body || {};
+
+  try {
+    const response = await axios.post(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+      body,
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+    console.log("response", response.headers["sap-message"]);
+    res.json({
+      response: response.data.d,
+      message: response.headers["sap-message"],
+    });
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to request materials",
+    });
+  }
+};
+
 exports.getProdOrderMatList = async (req, res) => {
   const { employeeId, plant, sessionId, orderId } = req.params;
 

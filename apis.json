@@ -295,6 +295,44 @@
   },
   {
     "app": "Materials",
+    "name": "Request Materials",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/requestMaterials",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+    "requestPayload": {
+      "order": "70000023",
+      "employeeId": "0000000001",
+      "sessionId": "3339BDDC29BA1FD194E926125AA7C0BF",
+      "plant": "9101",
+      "npToComponents": [
+        {
+          "employeeId": "",
+          "materialDesc": "FEP CANNULA (RG) G 22 SEMI ASSEMBLED",
+          "receivStorlc": "AS13",
+          "plant": "",
+          "sessionId": "",
+          "item": "0010",
+          "order": "70000023",
+          "component": "SEMIASYFEP22RG",
+          "operation": "0010",
+          "reqQuan": "123450",
+          "baseUom": "PCS",
+          "wdranQuan": "0",
+          "stockSf": "0",
+          "stockSrc": "0",
+          "pendReq": "123450",
+          "issueStorlc": "AY01"
+        }
+      ]
+    },
+    "response": {
+      "response": {},
+      "message": "string (SAP message from sap-message header)"
+    }
+  },
+  {
+    "app": "Materials",
     "name": "Get Production Order Material List",
     "method": "GET",
     "implemented": true,

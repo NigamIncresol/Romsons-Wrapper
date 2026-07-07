@@ -10,6 +10,22 @@ router.post("/requestMaterials", async (req, res) => {
   await materialsController.requestMaterials(req, res);
 });
 
+router.post("/transferMaterials", async (req, res) => {
+  console.log(
+    "🟢 Transfer Materials request received",
+    "/materials/transferMaterials",
+  );
+  await materialsController.transferMaterials(req, res);
+});
+
+router.get("/getReservations/:employeeId/:plant/:sessionId", async (req, res) => {
+  console.log(
+    "🟢 Get Reservations request received",
+    "/materials/getReservations",
+  );
+  await materialsController.getReservations(req, res);
+});
+
 router.get(
   "/prodOrderMatList/:employeeId/:plant/:sessionId/:orderId",
   async (req, res) => {

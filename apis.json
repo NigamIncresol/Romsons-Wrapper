@@ -333,6 +333,83 @@
   },
   {
     "app": "Materials",
+    "name": "Transfer Materials",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/transferMaterials",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+    "requestPayload": {
+      "reservationNumber": "0000367861",
+      "employeeId": "RG1P0026",
+      "sessionId": "3339BDDC29BA1FD19EBB76C09C9C53B2",
+      "plant": "9101",
+      "npToItem": [
+        {
+          "reservationItemNo": "0001",
+          "reservationNumber": "0000367861",
+          "material": "RMD010000200",
+          "issueStorageLoc": "RM00",
+          "receivingStorageLoc": "ML07",
+          "targetQty": "100",
+          "units": "KG",
+          "npToBatch": [
+            {
+              "reservationNumber": "0000367861",
+              "reservationItemNo": "0001",
+              "batch": "3006260001",
+              "splitQty": "100",
+              "unit": "KG"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Get Reservations",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getReservations/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem/npToBatch&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
+            "reservationNumber": "string",
+            "plant": "string",
+            "employeeId": "string",
+            "sessionId": "string",
+            "issueStorgaeLoc": "string",
+            "receivingStorgaeLoc": "string",
+            "npToItem": {
+              "results": [
+                {
+                  "reservationNumber": "string",
+                  "reservationItemNo": "string",
+                  "requirementQty": "0.000",
+                  "withdrawalQty": "0.000",
+                  "units": "string",
+                  "issueStorageLoc": "string",
+                  "receivingStorageLoc": "string",
+                  "pendingQty": "0.000",
+                  "targetQty": "0.000"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Materials",
     "name": "Get Production Order Material List",
     "method": "GET",
     "implemented": true,

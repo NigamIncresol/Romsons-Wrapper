@@ -410,6 +410,62 @@
   },
   {
     "app": "Materials",
+    "name": "Confirm Material Receipt",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/confirmMaterialReceipt",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+    "requestPayload": {
+      "order": "70000017",
+      "employeeId": "RG1P0011",
+      "sessionId": "3339BDDC29BA1FD19ED8AEA7BF078A7A",
+      "plant": "9101",
+      "npToIssue": [
+        {
+          "order": "70000017",
+          "reservationNumber": "0000367774",
+          "materialDoc": "4904980061",
+          "materialDocYear": "2026",
+          "issueSloc": "PK00",
+          "receiveSloc": "AP02",
+          "plant": "9101",
+          "npToIssueItem": [
+            {
+              "materialDoc": "4904980061",
+              "materialDesc": "4.75x13-LD POUCH",
+              "order": "70000017",
+              "materialDocYear": "2026",
+              "materialDocItem": "0003",
+              "material": "PPD030008000",
+              "batch": "0000349003",
+              "issuedQty": "2.836",
+              "unit": "KG",
+              "reservationNo": "0000367774",
+              "targetQty": "2.836"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Get Material Issue",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getMaterialIssue/:employeeId/:plant/:sessionId/:orderId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ProductionOrderListSet('{orderId}')?sap-client=690&$expand=npToIssue/npToIssueItem&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "orderId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
     "name": "Get Production Order Material List",
     "method": "GET",
     "implemented": true,

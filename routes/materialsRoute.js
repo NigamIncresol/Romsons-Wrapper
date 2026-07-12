@@ -26,6 +26,25 @@ router.get("/getReservations/:employeeId/:plant/:sessionId", async (req, res) =>
   await materialsController.getReservations(req, res);
 });
 
+router.post("/confirmMaterialReceipt", async (req, res) => {
+  console.log(
+    "🟢 Confirm Material Receipt request received",
+    "/materials/confirmMaterialReceipt",
+  );
+  await materialsController.confirmMaterialReceipt(req, res);
+});
+
+router.get(
+  "/getMaterialIssue/:employeeId/:plant/:sessionId/:orderId",
+  async (req, res) => {
+    console.log(
+      "🟢 Get Material Issue request received",
+      "/materials/getMaterialIssue",
+    );
+    await materialsController.getMaterialIssue(req, res);
+  },
+);
+
 router.get(
   "/prodOrderMatList/:employeeId/:plant/:sessionId/:orderId",
   async (req, res) => {

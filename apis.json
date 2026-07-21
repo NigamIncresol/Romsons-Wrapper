@@ -423,15 +423,16 @@
   },
   {
     "app": "Materials",
-    "name": "Get Reservations",
+    "name": "ReservationByResNo",
     "method": "GET",
     "implemented": true,
-    "endpoint": "/api/materials/getReservations/:employeeId/:plant/:sessionId",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem/npToBatch&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "endpoint": "/api/materials/getReservationByNumber/:employeeId/:plant/:sessionId/:reservationNumber",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem/npToBatch&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}' and reservationNumber eq '{reservationNumber}'",
     "requestParams": {
       "employeeId": "string",
       "plant": "string",
-      "sessionId": "string"
+      "sessionId": "string",
+      "reservationNumber": "string"
     },
     "response": {
       "d": {

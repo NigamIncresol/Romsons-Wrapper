@@ -26,21 +26,27 @@ router.get("/getSingleReservation/:reservationNumber", async (req, res) => {
   await materialsController.getReservation(req, res);
 });
 
-router.get("/getReservationList/:employeeId/:plant/:sessionId", async (req, res) => {
-  console.log(
-    "🟢 Get Reservation List request received",
-    "/materials/getReservationList",
-  );
-  await materialsController.getReservationList(req, res);
-});
+router.get(
+  "/getReservationList/:employeeId/:plant/:sessionId",
+  async (req, res) => {
+    console.log(
+      "🟢 Get Reservation List request received",
+      "/materials/getReservationList",
+    );
+    await materialsController.getReservationList(req, res);
+  },
+);
 
-router.get("/getReservations/:employeeId/:plant/:sessionId", async (req, res) => {
-  console.log(
-    "🟢 Get Reservations request received",
-    "/materials/getReservations",
-  );
-  await materialsController.getReservations(req, res);
-});
+router.get(
+  "/getReservationByNumber/:employeeId/:plant/:sessionId/:reservationNumber",
+  async (req, res) => {
+    console.log(
+      "🟢 Get Reservations By Reservation Number request received",
+      "/materials/getReservations",
+    );
+    await materialsController.getReservationByNumber(req, res);
+  },
+);
 
 router.post("/confirmMaterialReceipt", async (req, res) => {
   console.log(

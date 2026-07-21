@@ -155,8 +155,8 @@ exports.getReservationList = async (req, res) => {
   }
 };
 
-exports.getReservations = async (req, res) => {
-  const { employeeId, plant, sessionId } = req.params;
+exports.getReservationByNumber = async (req, res) => {
+  const { employeeId, plant, sessionId, reservationNumber } = req.params;
 
   try {
     const response = await axios.get(
@@ -164,7 +164,7 @@ exports.getReservations = async (req, res) => {
       {
         params: {
           $expand: "npToItem/npToBatch",
-          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}' and reservationNumber eq '${reservationNumber}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,

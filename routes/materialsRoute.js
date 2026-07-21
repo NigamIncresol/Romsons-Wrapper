@@ -18,6 +18,22 @@ router.post("/transferMaterials", async (req, res) => {
   await materialsController.transferMaterials(req, res);
 });
 
+router.get("/getSingleReservation/:reservationNumber", async (req, res) => {
+  console.log(
+    "🟢 Get Single Reservation request received",
+    "/materials/getSingleReservation",
+  );
+  await materialsController.getReservation(req, res);
+});
+
+router.get("/getReservationList/:employeeId/:plant/:sessionId", async (req, res) => {
+  console.log(
+    "🟢 Get Reservation List request received",
+    "/materials/getReservationList",
+  );
+  await materialsController.getReservationList(req, res);
+});
+
 router.get("/getReservations/:employeeId/:plant/:sessionId", async (req, res) => {
   console.log(
     "🟢 Get Reservations request received",

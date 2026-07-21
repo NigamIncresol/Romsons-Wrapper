@@ -333,6 +333,61 @@
   },
   {
     "app": "Materials",
+    "name": "Get Reservation",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getSingleReservation/:reservationNumber",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem,npToMatIssue,npToMatReceipts&$filter=reservationNumber eq '{reservationNumber}'&$format=json",
+    "requestParams": {
+      "reservationNumber": "string"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
+            "reservationNumber": "string",
+            "plant": "string",
+            "employeeId": "string",
+            "sessionId": "string",
+            "issueStorgaeLoc": "string",
+            "receivingStorgaeLoc": "string",
+            "npToItem": { "results": [] },
+            "npToMatIssue": { "results": [] },
+            "npToMatReceipts": { "results": [] }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Materials",
+    "name": "Get Reservation List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getReservationList/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {
+      "d": {
+        "results": [
+          {
+            "reservationNumber": "string",
+            "plant": "string",
+            "employeeId": "string",
+            "sessionId": "string",
+            "issueStorgaeLoc": "string",
+            "receivingStorgaeLoc": "string"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "app": "Materials",
     "name": "Transfer Materials",
     "method": "POST",
     "implemented": true,

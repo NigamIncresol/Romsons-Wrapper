@@ -80,6 +80,81 @@ exports.transferMaterials = async (req, res) => {
   }
 };
 
+exports.getReservation = async (req, res) => {
+  const { reservationNumber } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToItem,npToMatIssue,npToMatReceipts",
+          $filter: `reservationNumber eq '${reservationNumber}'`,
+          $format: "json",
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch reservation",
+    });
+  }
+};
+
+exports.getReservationList = async (req, res) => {
+  const { employeeId, plant, sessionId } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToItem",
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch reservation list",
+    });
+  }
+};
+
 exports.getReservations = async (req, res) => {
   const { employeeId, plant, sessionId } = req.params;
 

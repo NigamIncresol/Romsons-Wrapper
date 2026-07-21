@@ -48,6 +48,30 @@ router.get(
   },
 );
 
+router.get("/getConfirmationList/:employeeId/:plant/:sessionId", async (req, res) => {
+  console.log(
+    "🟢 Get Confirmation List request received",
+    "/materials/getConfirmationList",
+  );
+  await materialsController.getConfirmationList(req, res);
+});
+
+router.get("/getSingleIssueDetailsByMatDocAndYear/:materialDoc/:materialDocYear", async (req, res) => {
+  console.log(
+    "🟢 Get Single Issue Details By Mat Doc And Year request received",
+    "/materials/getSingleIssueDetailsByMatDocAndYear",
+  );
+  await materialsController.getSingleIssueDetailsByMatDocAndYear(req, res);
+});
+
+router.get("/getIssueList/:employeeId/:plant/:sessionId", async (req, res) => {
+  console.log(
+    "🟢 Get Issue List request received",
+    "/materials/getIssueList",
+  );
+  await materialsController.getIssueList(req, res);
+});
+
 router.post("/confirmMaterialReceipt", async (req, res) => {
   console.log(
     "🟢 Confirm Material Receipt request received",

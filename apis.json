@@ -466,6 +466,47 @@
   },
   {
     "app": "Materials",
+    "name": "Get Confirmation List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getConfirmationList/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=690&$expand=npToItem&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Get Single Issue Details By Mat Doc And Year",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getSingleIssueDetailsByMatDocAndYear/:materialDoc/:materialDocYear",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690&$expand=npToIssueItem,npToReceipts&$filter=materialDoc eq '{materialDoc}' and materialDocYear eq '{materialDocYear}'&$format=json",
+    "requestParams": {
+      "materialDoc": "string",
+      "materialDocYear": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Get Issue List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/getIssueList/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690&$expand=npToIssueItem&$format=json&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
     "name": "Confirm Material Receipt",
     "method": "POST",
     "implemented": true,

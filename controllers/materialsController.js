@@ -155,6 +155,119 @@ exports.getReservationList = async (req, res) => {
   }
 };
 
+exports.getConfirmationList = async (req, res) => {
+  const { employeeId, plant, sessionId } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToItem",
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch confirmation list",
+    });
+  }
+};
+
+exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
+  const { materialDoc, materialDocYear } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToIssueItem,npToReceipts",
+          $filter: `materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}'`,
+          $format: "json",
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch issue details",
+    });
+  }
+};
+
+exports.getIssueList = async (req, res) => {
+  const { employeeId, plant, sessionId } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToIssueItem",
+          $format: "json",
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch issue list",
+    });
+  }
+};
+
 exports.getReservationByNumber = async (req, res) => {
   const { employeeId, plant, sessionId, reservationNumber } = req.params;
 

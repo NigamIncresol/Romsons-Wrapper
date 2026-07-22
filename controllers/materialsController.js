@@ -155,6 +155,99 @@ exports.getReservationList = async (req, res) => {
   }
 };
 
+exports.printMaterialReceiptSlip = async (req, res) => {
+  const { materialDoc, materialDocYear } = req.params;
+
+  try {
+    const response = await axios.get(
+      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to print material receipt slip",
+    });
+  }
+};
+
+exports.printMaterialIssueSlip = async (req, res) => {
+  const { materialDoc, materialDocYear } = req.params;
+
+  try {
+    const response = await axios.get(
+      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to print material issue slip",
+    });
+  }
+};
+
+exports.printReservationSlip = async (req, res) => {
+  const { reservationNumber } = req.params;
+
+  try {
+    const response = await axios.get(
+      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=690`,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to print reservation slip",
+    });
+  }
+};
+
 exports.getConfirmationList = async (req, res) => {
   const { employeeId, plant, sessionId } = req.params;
 

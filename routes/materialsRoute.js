@@ -48,6 +48,21 @@ router.get(
   },
 );
 
+router.get("/printMaterialReceiptSlip/:materialDoc/:materialDocYear", async (req, res) => {
+  console.log("🟢 Print Material Receipt Slip request received", "/materials/printMaterialReceiptSlip");
+  await materialsController.printMaterialReceiptSlip(req, res);
+});
+
+router.get("/printMaterialIssueSlip/:materialDoc/:materialDocYear", async (req, res) => {
+  console.log("🟢 Print Material Issue Slip request received", "/materials/printMaterialIssueSlip");
+  await materialsController.printMaterialIssueSlip(req, res);
+});
+
+router.get("/printReservationSlip/:reservationNumber", async (req, res) => {
+  console.log("🟢 Print Reservation Slip request received", "/materials/printReservationSlip");
+  await materialsController.printReservationSlip(req, res);
+});
+
 router.get("/getConfirmationList/:employeeId/:plant/:sessionId", async (req, res) => {
   console.log(
     "🟢 Get Confirmation List request received",

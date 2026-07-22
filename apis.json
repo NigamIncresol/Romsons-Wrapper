@@ -264,6 +264,20 @@
   },
   {
     "app": "Production Orders",
+    "name": "Get Job Card List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionOrder/getJobCardList/:employeeId/:plant/:sessionId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690&$format=json&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}'",
+    "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Orders",
     "name": "Print Job Card",
     "method": "GET",
     "implemented": true,
@@ -463,6 +477,44 @@
         ]
       }
     }
+  },
+  {
+    "app": "Materials",
+    "name": "Print Material Receipt Slip",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/printMaterialReceiptSlip/:materialDoc/:materialDocYear",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='{materialDoc}',materialDocYear='{materialDocYear}')/$value?sap-client=690",
+    "requestParams": {
+      "materialDoc": "string",
+      "materialDocYear": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Print Material Issue Slip",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/printMaterialIssueSlip/:materialDoc/:materialDocYear",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='{materialDoc}',materialDocYear='{materialDocYear}')/$value?sap-client=690",
+    "requestParams": {
+      "materialDoc": "string",
+      "materialDocYear": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Print Reservation Slip",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/printReservationSlip/:reservationNumber",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='{reservationNumber}')/$value?sap-client=690",
+    "requestParams": {
+      "reservationNumber": "string"
+    },
+    "response": {}
   },
   {
     "app": "Materials",

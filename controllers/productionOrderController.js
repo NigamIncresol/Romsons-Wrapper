@@ -197,11 +197,12 @@ exports.printJobCard = async (req, res) => {
     const response = await axios.get(
       `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardSet(order='${order}',shiftId='${shiftId}',shiftDt=datetime'${shiftDate}')/$value?sap-client=690`,
       {
+        responseType: "arraybuffer",
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
         }),
         headers: {
-          Accept: "application/json",
+          Accept: "application/pdf",
           "X-Requested-With": "X",
           "sap-language": "EN",
         },
@@ -212,7 +213,9 @@ exports.printJobCard = async (req, res) => {
       },
     );
 
-    res.json(response.data);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="job_card_${order}.pdf"`);
+    res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({

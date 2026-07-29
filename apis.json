@@ -532,6 +532,19 @@
   },
   {
     "app": "Materials",
+    "name": "Issue Detail By Doc And Year",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/issueDetailByDocAndYear/:materialDoc/:materialDocYear",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690&$expand=npToIssueItem,npToReceipts&$filter=materialDoc eq '{materialDoc}' and materialDocYear eq '{materialDocYear}'&$format=json",
+    "requestParams": {
+      "materialDoc": "string",
+      "materialDocYear": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Materials",
     "name": "Get Single Issue Details By Mat Doc And Year",
     "method": "GET",
     "implemented": true,
@@ -556,6 +569,19 @@
       "sessionId": "string"
     },
     "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Create Receive Confirm",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/createReceiveConfirm",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
   },
   {
     "app": "Materials",

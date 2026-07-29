@@ -34,7 +34,7 @@ exports.loginUser = async (req, res) => {
     // console.log("Response:", response.data);
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error.response?.data || error.message);
+    console.error("Error:", error);
     res.status(500).json({
       message: "Login failed",
       error: error.response?.data || error.message,
@@ -216,7 +216,6 @@ exports.resetPasswordWithOTP = async (req, res) => {
 
     res.json(response.data?.d || response.data);
   } catch (error) {
-    
     console.error(
       "OTP Reset Password Error:",
       error.response?.data || error.message,

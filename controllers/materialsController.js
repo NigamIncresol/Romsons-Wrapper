@@ -163,8 +163,9 @@ exports.printMaterialReceiptSlip = async (req, res) => {
       `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        responseType: "arraybuffer",
         headers: {
-          Accept: "application/json",
+          Accept: "application/pdf",
           "X-Requested-With": "X",
           "sap-language": "EN",
         },
@@ -175,7 +176,9 @@ exports.printMaterialReceiptSlip = async (req, res) => {
       },
     );
 
-    res.json(response.data);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="receipt_slip_${materialDoc}.pdf"`);
+    res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
@@ -194,8 +197,9 @@ exports.printMaterialIssueSlip = async (req, res) => {
       `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        responseType: "arraybuffer",
         headers: {
-          Accept: "application/json",
+          Accept: "application/pdf",
           "X-Requested-With": "X",
           "sap-language": "EN",
         },
@@ -206,7 +210,9 @@ exports.printMaterialIssueSlip = async (req, res) => {
       },
     );
 
-    res.json(response.data);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="issue_slip_${materialDoc}.pdf"`);
+    res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
@@ -224,9 +230,10 @@ exports.printReservationSlip = async (req, res) => {
     const response = await axios.get(
       `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=690`,
       {
+        responseType: "arraybuffer",
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         headers: {
-          Accept: "application/json",
+          Accept: "application/pdf",
           "X-Requested-With": "X",
           "sap-language": "EN",
         },
@@ -237,7 +244,9 @@ exports.printReservationSlip = async (req, res) => {
       },
     );
 
-    res.json(response.data);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="reservation_${reservationNumber}.pdf"`);
+    res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     res.status(500).json({
@@ -281,6 +290,78 @@ exports.getConfirmationList = async (req, res) => {
       success: false,
       error: error?.response?.data ?? error?.message,
       message: "Failed to fetch confirmation list",
+    });
+  }
+};
+
+exports.createReceiveConfirm = async (req, res) => {
+  const body = req.body || {};
+
+  try {
+    const response = await axios.post(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      body,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json({
+      response: response.data.d,
+      message: response.headers["sap-message"],
+    });
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to create material issue",
+    });
+  }
+};
+
+exports.issueDetailByDocAndYear = async (req, res) => {
+  const { materialDoc, materialDocYear } = req.params;
+
+  try {
+    const response = await axios.get(
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      {
+        params: {
+          $expand: "npToIssueItem,npToReceipts",
+          $filter: `materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}'`,
+          $format: "json",
+        },
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: "Failed to fetch issue detail",
     });
   }
 };

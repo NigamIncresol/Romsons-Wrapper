@@ -7,13 +7,12 @@ dotenv.config();
 exports.loginUser = async (req, res) => {
   const { employeeId, password, plant } = req.body;
   try {
+    const payload = { employeeId, password };
+    if (plant) payload.plant = plant;
+
     const response = await axios.post(
       "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=690",
-      {
-        employeeId: employeeId,
-        password: password,
-        plant: plant,
-      },
+      payload,
       {
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,

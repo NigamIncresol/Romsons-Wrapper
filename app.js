@@ -5,6 +5,8 @@ const statusRoutes = require("./routes/statusRoute");
 const productionOrderRoutes = require("./routes/productionOrderRoute");
 const operatorAssignmentRoutes = require("./routes/operatorAssignmentRoute");
 const materialsRoutes = require("./routes/materialsRoute");
+const productionConfirmationRoutes = require("./routes/productionConfirmationRoute");
+const employeeInfoRoutes = require("./routes/employeeInfoRoute");
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +21,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/productionOrder", productionOrderRoutes);
 app.use("/api/operatorAssignment", operatorAssignmentRoutes);
 app.use("/api/materials", materialsRoutes);
+app.use("/api/productionconfirmation", productionConfirmationRoutes);
+app.use("/api/employeeinfo", employeeInfoRoutes);
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

@@ -175,7 +175,7 @@ exports.updateOperatorAssignment = async (req, res) => {
 
   try {
     await axios.put(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='${order}',operation='${operation}',shiftId='${shiftId}',employeeId='${employeeId}')?sap-client=690`,
+      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='${order}',operation='${operation}',shiftId='${shiftId}',employeeId='${employeeId}',shiftDate=datetime'${shiftDate}')?sap-client=690`,
       {
         order,
         shiftId,

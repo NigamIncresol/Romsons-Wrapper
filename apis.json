@@ -9,7 +9,7 @@
     "requestPayload": {
       "employeeId": "string",
       "password": "string",
-      "plant": "string"
+      "plant": "string (optional)"
     },
     "response": {
       "d": {
@@ -655,6 +655,142 @@
     "response": {}
   },
   {
+    "app": "Employee Info",
+    "name": "Get Employee Info",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/employeeinfo/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/EmpDataSet('{employeeId}')?sap-client=690&$format=json",
+    "requestParams": {
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Submit Order For GRN",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/submitorderforgrn",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/jobCardListSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Prod Order Confirm List",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/prodorderconfirmlist/:jobCardNo/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690&$filter=jobCardNo eq '{jobCardNo}' and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$expand=npToConfirmation/npToItem&$format=json",
+    "requestParams": {
+      "jobCardNo": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Submit Order Confirmation",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/submitorderconfirmation",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Activity Details",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/activitydetails/:order/:operation/:yield/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ProductionActivitySet?sap-client=690&$filter=order eq '{order}' and operation eq '{operation}' and yield eq {yield} and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$format=json",
+    "requestParams": {
+      "order": "string",
+      "operation": "string",
+      "yield": "number",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Component Batch Details",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/componentbatchdetails/:order/:operation/:material/:itemNo/:yield/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentBatchSet?sap-client=690&$filter=order eq '{order}' and operation eq '{operation}' and material eq '{material}' and itemNo eq '{itemNo}' and yield eq {yield} and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$format=json",
+    "requestParams": {
+      "order": "string",
+      "operation": "string",
+      "material": "string",
+      "itemNo": "string",
+      "yield": "decimal with unit e.g. 0.298m",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Consumption Details",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/consumptiondetails/:order/:operation/:yield/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentConsumpSet?sap-client=690&$filter=order eq '{order}' and operation eq '{operation}' and yield eq {yield} and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$format=json",
+    "requestParams": {
+      "order": "string",
+      "operation": "string",
+      "yield": "number",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Job Card Details",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/jobcarddetails/:jobCardNo/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690&$filter=jobCardNo eq '{jobCardNo}' and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$expand=npToItem/npToAssignment&$format=json",
+    "requestParams": {
+      "jobCardNo": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
+    "app": "Production Confirmation",
+    "name": "Get Order Details",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/orderdetails/:order/:plant/:sessionId/:employeeId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690&$filter=order eq '{order}' and plant eq '{plant}' and sessionId eq '{sessionId}' and employeeId eq '{employeeId}'&$expand=npToOperation/npToComponents&$format=json",
+    "requestParams": {
+      "order": "string",
+      "plant": "string",
+      "sessionId": "string",
+      "employeeId": "string"
+    },
+    "response": {}
+  },
+  {
     "app": "Operator Assignment",
     "name": "Get Shift List",
     "method": "GET",
@@ -782,7 +918,7 @@
     "method": "PUT",
     "implemented": true,
     "endpoint": "/api/operatorAssignment/updateOperatorAssignment",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='{order}',operation='{operation}',shiftId='{shiftId}',employeeId='{employeeId}')?sap-client=690",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='{order}',operation='{operation}',shiftId='{shiftId}',employeeId='{employeeId}',shiftDate=datetime'{shiftDate}')?sap-client=690",
     "requestPayload": {
       "order": "1035863",
       "shiftId": "1",

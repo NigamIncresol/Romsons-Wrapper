@@ -10,7 +10,7 @@ exports.submitOrderForGRN = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/jobCardListSet?sap-client=690",
+      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
       body,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),

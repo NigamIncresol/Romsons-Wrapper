@@ -672,7 +672,7 @@
     "method": "POST",
     "implemented": true,
     "endpoint": "/api/productionconfirmation/submitorderforgrn",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/jobCardListSet?sap-client=690",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
     "requestBody": "full payload passed as-is from frontend",
     "response": {
       "response": "SAP response data",

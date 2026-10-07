@@ -11,7 +11,7 @@ exports.loginUser = async (req, res) => {
     if (plant) payload.plant = plant;
 
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=690`,
       payload,
       {
         httpsAgent: new https.Agent({
@@ -46,7 +46,7 @@ exports.logoutUser = async (req, res) => {
 
   try {
     const response = await axios.put(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet(employeeId='" +
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet(employeeId='` +
         employeeId +
         "',plant='" +
         plant +
@@ -93,7 +93,7 @@ exports.changePassword = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ChangePasswordSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ChangePasswordSet?sap-client=690`,
       {
         employeeId,
         oldPassword,
@@ -139,7 +139,7 @@ exports.forgotPasswordOTP = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet?sap-client=690`,
       {
         employeeID,
         Email,
@@ -183,7 +183,7 @@ exports.resetPasswordWithOTP = async (req, res) => {
 
   try {
     const response = await axios.put(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet(employeeID='" +
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet(employeeID='` +
         employeeID +
         "',plant='" +
         plant +

@@ -10,7 +10,7 @@ exports.submitOrderForGRN = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -46,7 +46,7 @@ exports.getProdOrderConfirmList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690`,
       {
         params: {
           $filter: `jobCardNo eq '${jobCardNo}' and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,
@@ -82,7 +82,7 @@ exports.submitOrderConfirmation = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -125,7 +125,7 @@ exports.getActivityDetails = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ProductionActivitySet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ProductionActivitySet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${order}' and operation eq '${operation}' and yield eq ${yieldVal} and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,
@@ -169,7 +169,7 @@ exports.getComponentBatchDetails = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentBatchSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentBatchSet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${order}' and operation eq '${operation}' and material eq '${material}' and itemNo eq '${itemNo}' and yield eq ${yieldVal} and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,
@@ -211,7 +211,7 @@ exports.getConsumptionDetails = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentConsumpSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ComponentConsumpSet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${order}' and operation eq '${operation}' and yield eq ${yieldVal} and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,
@@ -246,7 +246,7 @@ exports.getJobCardDetails = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690`,
       {
         params: {
           $filter: `jobCardNo eq '${jobCardNo}' and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,
@@ -282,7 +282,7 @@ exports.getOrderDetails = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${order}' and plant eq '${plant}' and sessionId eq '${sessionId}' and employeeId eq '${employeeId}'`,

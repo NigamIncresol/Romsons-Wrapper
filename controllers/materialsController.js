@@ -9,7 +9,7 @@ exports.requestMaterials = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -47,7 +47,7 @@ exports.transferMaterials = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -85,7 +85,7 @@ exports.getReservation = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
       {
         params: {
           $expand: "npToItem,npToMatIssue,npToMatReceipts",
@@ -123,7 +123,7 @@ exports.getReservationList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
       {
         params: {
           $expand: "npToItem",
@@ -160,7 +160,7 @@ exports.printMaterialReceiptSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         responseType: "arraybuffer",
@@ -194,7 +194,7 @@ exports.printMaterialIssueSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         responseType: "arraybuffer",
@@ -228,7 +228,7 @@ exports.printReservationSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=690`,
       {
         responseType: "arraybuffer",
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -262,7 +262,7 @@ exports.getConfirmationList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=690`,
       {
         params: {
           $expand: "npToItem",
@@ -299,7 +299,7 @@ exports.createReceiveConfirm = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -335,7 +335,7 @@ exports.issueDetailByDocAndYear = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
@@ -371,7 +371,7 @@ exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
@@ -409,7 +409,7 @@ exports.getIssueList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
       {
         params: {
           $expand: "npToIssueItem",
@@ -447,7 +447,7 @@ exports.getReservationByNumber = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
       {
         params: {
           $expand: "npToItem/npToBatch",
@@ -484,7 +484,7 @@ exports.confirmMaterialReceipt = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -522,7 +522,7 @@ exports.getMaterialIssue = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
       {
         params: {
           $expand: "npToIssue/npToIssueItem",
@@ -559,7 +559,7 @@ exports.getProdOrderMatList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
       {
         params: {
           $expand: "npToComponents",

@@ -9,7 +9,7 @@ exports.getOperationList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperationSet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${orderId}' and employeeId eq '${employeeId}' and plant eq '${plant}' and sessioId eq '${sessionId}'`,
@@ -45,7 +45,7 @@ exports.getOperatorList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690`,
       {
         params: {
           $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}' and employeeId eq '${employeeId}' and sessionId eq '${sessionId}'`,
@@ -81,7 +81,7 @@ exports.getShiftList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/shiftSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/shiftSet?sap-client=690`,
       {
         params: {
           $filter: `plant eq '${plant}'`,
@@ -118,7 +118,7 @@ exports.getOperatorAssignmentList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690`,
       {
         params: {
           $filter: `order eq '${order}' and shiftId eq '${shiftId}' and shiftDate eq datetime'${shiftDate}' and employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
@@ -175,7 +175,7 @@ exports.updateOperatorAssignment = async (req, res) => {
 
   try {
     await axios.put(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='${order}',operation='${operation}',shiftId='${shiftId}',employeeId='${employeeId}',shiftDate=datetime'${shiftDate}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet(order='${order}',operation='${operation}',shiftId='${shiftId}',employeeId='${employeeId}',shiftDate=datetime'${shiftDate}')?sap-client=690`,
       {
         order,
         shiftId,
@@ -245,7 +245,7 @@ exports.assignOperator = async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorAssignmentSet?sap-client=690`,
       {
         order,
         plant,

@@ -28,6 +28,8 @@ router.get("/", (req, res) => {
 
   const totalApis = apis.length;
   const totalApps = Object.keys(grouped).length;
+  const env = (process.env.ENV || "UNKNOWN").toUpperCase();
+  const envClass = env === "DEV" ? "env-dev" : env === "QAS" ? "env-qas" : env === "PROD" ? "env-prod" : "env-default";
 
   const groupedHtml = Object.keys(grouped)
     .map(
@@ -339,6 +341,17 @@ router.get("/", (req, res) => {
     }
     .stat-pill span { color: var(--text-main); font-weight: 700; }
 
+    .env-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .env-dev  { color: #3dd68c; background: rgba(61,214,140,0.12); border: 1px solid rgba(61,214,140,0.35); }
+    .env-qas  { color: #e8a020; background: rgba(232,160,32,0.12); border: 1px solid rgba(232,160,32,0.35); }
+    .env-prod { color: #f85149; background: rgba(248,81,73,0.12);  border: 1px solid rgba(248,81,73,0.35); }
+    .env-default { color: #8b949e; background: rgba(139,148,158,0.1); border: 1px solid rgba(139,148,158,0.25); }
+
     /* ── Theme Toggle ── */
     .theme-toggle {
       background: var(--bg-card);
@@ -638,6 +651,7 @@ router.get("/", (req, res) => {
         <div class="stat-pill">APIs: <span>${totalApis}</span></div>
         <div class="stat-pill">Apps: <span>${totalApps}</span></div>
       </div>
+      <span class="env-badge ${envClass}">${env}</span>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
     </div>
   </div>
@@ -660,6 +674,7 @@ router.get("/", (req, res) => {
   <!-- Footer -->
   <div class="footer">
     <div><span class="online-dot"></span>Dashboard live</div>
+    <div style="font-size:11px; color: var(--text-muted);">${process.env.SAP_BASE_URL}</div>
     <div>Node ${process.version}</div>
   </div>
 

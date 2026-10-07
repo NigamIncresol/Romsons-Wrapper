@@ -9,7 +9,7 @@ exports.getEmployeeInfo = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/EmpDataSet('${employeeId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/EmpDataSet('${employeeId}')?sap-client=690`,
       {
         params: { $format: "json" },
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),

@@ -1,5 +1,98 @@
 [
   {
+    "app": "Report",
+    "app": "F4 Value Help",
+    "name": "F4 Value Help",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/f4/:appId/:helpId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/bc/zrk_f4/{appId}/{helpId}?empid={empid}&sesid={sesid}&plant={plant}&sap-client=690",
+    "requestParams": {
+      "appId": "string (e.g. stock_report, prod_order_list, operator_assign)",
+      "helpId": "string (e.g. plants, houses, materials, shifts, orders_open)"
+    },
+    "requestQuery": {
+      "empid": "string (required)",
+      "sesid": "string (required)",
+      "plant": "string (required)",
+      "search": "string (optional)",
+      "top": "number (optional, default 100, max 500)",
+      "skip": "number (optional, default 0)",
+      "house_id": "string (optional)",
+      "family": "string (optional)",
+      "aufnr": "string (optional)",
+      "rsnum": "string (optional)",
+      "mjahr": "string (optional)"
+    },
+    "response": {
+      "help": "helpId",
+      "top": 100,
+      "skip": 0,
+      "has_more": false,
+      "total": 5,
+      "values": [{ "key": "", "key2": "", "text": "", "info": "" }]
+    }
+  },
+  {
+    "app": "Report",
+    "name": "F4 Bundle",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/f4/:appId",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/bc/zrk_f4/{appId}?empid={empid}&sesid={sesid}&sap-client=690",
+    "requestParams": {
+      "appId": "string (e.g. stock_report, operator_assign, jobcard_list)"
+    },
+    "requestQuery": {
+      "empid": "string (required)",
+      "sesid": "string (required)",
+      "plant": "string (required)"
+    },
+    "response": {
+      "shifts": { "help": "shifts", "top": 100, "skip": 0, "has_more": false, "total": 2, "values": [] }
+    }
+  },
+  {
+    "app": "Report",
+    "name": "Get Operator Performance",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/report/operatorperformance",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperPerfSet?sap-client=690&$filter=Werks eq '{plant}' and ( ShiftDate ge datetime'{fromDate}' and ShiftDate le datetime'{toDate}' ) and Aufnr eq '{order}' and UserEmpid eq '{employeeId}' and Sesid eq '{sessionId}'&$format=json",
+    "requestQuery": {
+      "plant": "string (required)",
+      "employeeId": "string (required)",
+      "sessionId": "string (required)",
+      "fromDate": "string (required if order not provided, ISO format: 2025-04-01T00:00:00)",
+      "toDate": "string (required if order not provided, ISO format: 2025-04-07T00:00:00)",
+      "order": "string (required if date range not provided)"
+    },
+    "note": "plant, employeeId, sessionId are always mandatory. At least one of date range (fromDate + toDate) or order must be provided. Both can be passed together. If fromDate is passed, toDate is also required.",
+    "response": {}
+  },
+  {
+    "app": "Report",
+    "name": "Get Planned Data",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/report/stockreport",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/SAP/ZRAKSHITH20_SRV/PlannedDataSet?sap-client=690&$filter=Werks eq '{werks}' and Dispo eq '{dispo}'[and Matnr eq '{matnr}'][and Mtart eq '{mtart}'][and House_ID eq '{houseId}'][and Department eq '{department}'][and Family eq '{family}']&$format=json&$top={top}&$skip={skip}",
+    "requestQuery": {
+      "plant": "string (required)",
+      "mrpController": "string (required)",
+      "employeeId": "string (required)",
+      "sessionId": "string (required)",
+      "materialCode": "string (optional)",
+      "materialType": "string (optional)",
+      "houseId": "string (optional)",
+      "department": "string (optional)",
+      "family": "string (optional)",
+      "top": "number (optional, default 50)",
+      "skip": "number (optional, default 0)"
+    },
+    "response": {}
+  },
+  {
     "app": "Auth Service / Secondary User Management",
     "name": "Login User",
     "method": "POST",
@@ -569,6 +662,94 @@
       "sessionId": "string"
     },
     "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Create Transfer",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/createTransfer",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/TransferHdrSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "requestPayload": {
+      "TransferId": "string",
+      "Werks": "string",
+      "FromLgort": "string",
+      "ToLgort": "string",
+      "Bwart": "string",
+      "HeaderText": "string",
+      "Empid": "string",
+      "Sesid": "string",
+      "npToItem": [
+        {
+          "TransferId": "string",
+          "ItemNo": "string",
+          "Matnr": "string",
+          "Charg": "string",
+          "Qty": "string",
+          "Meins": "string"
+        }
+      ]
+    },
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
+  },
+  {
+    "app": "Materials",
+    "name": "Get Stock Info",
+    "method": "GET",
+    "implemented": true,
+    "endpoint": "/api/materials/stockinfo",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/StockSet?sap-client=690&$filter=Werks eq '{plant}' and Lgort eq '{storageLocation}' and Bwart eq '311' and Empid eq '{employeeId}' and Sesid eq '{sessionId}'&$format=json",
+    "requestQuery": {
+      "plant": "string (required)",
+      "storageLocation": "string (required)",
+      "employeeId": "string (required)",
+      "sessionId": "string (required)"
+    },
+    "note": "Bwart (movement type) is hardcoded as '311' in the SAP call",
+    "response": {}
+  },
+  {
+    "app": "Materials",
+    "name": "Verify Scan Check",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/materials/verifyScanCheck",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ScanCheckSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "requestPayload": {
+      "QrNo": "string",
+      "ScannedQty": "string",
+      "Action": "string (e.g. SPLIT)",
+      "Empid": "string",
+      "Sesid": "string",
+      "Werks": "string",
+      "Rsnum": "string",
+      "Rspos": "string",
+      "Aufnr": "string",
+      "LoadId": "string",
+      "FromLgort": "string",
+      "ToLgort": "string",
+      "Mblnr": "string",
+      "Mjahr": "string",
+      "SplitQty": "string",
+      "Printer": "string",
+      "Ok": "string",
+      "Message": "string",
+      "Matnr": "string",
+      "Charg": "string",
+      "Qty": "string",
+      "Meins": "string",
+      "LblStatus": "string",
+      "NewQrNo": "string"
+    },
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
   },
   {
     "app": "Materials",

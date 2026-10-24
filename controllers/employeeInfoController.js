@@ -1,4 +1,4 @@
-const axios = require("axios");
+﻿const axios = require("axios");
 const https = require("https");
 const dotenv = require("dotenv");
 
@@ -9,7 +9,7 @@ exports.getEmployeeInfo = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/EmpDataSet('${employeeId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/EmpDataSet('${employeeId}')?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: { $format: "json" },
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -35,3 +35,4 @@ exports.getEmployeeInfo = async (req, res) => {
     });
   }
 };
+

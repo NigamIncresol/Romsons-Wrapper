@@ -95,6 +95,21 @@ router.get("/getIssueList/:employeeId/:plant/:sessionId", async (req, res) => {
   await materialsController.getIssueList(req, res);
 });
 
+router.post("/createTransfer", async (req, res) => {
+  console.log("🟢 Create Transfer request received", "/materials/createTransfer");
+  await materialsController.createTransfer(req, res);
+});
+
+router.get("/stockinfo", async (req, res) => {
+  console.log("🟢 Stock Info request received", "/materials/stockinfo");
+  await materialsController.getStockInfo(req, res);
+});
+
+router.post("/verifyScanCheck", async (req, res) => {
+  console.log("🟢 Verify Scan Check request received", "/materials/verifyScanCheck");
+  await materialsController.verifyScanCheck(req, res);
+});
+
 router.post("/createReceiveConfirm", async (req, res) => {
   console.log(
     "🟢 Create Receive Confirm request received",

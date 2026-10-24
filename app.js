@@ -7,6 +7,8 @@ const operatorAssignmentRoutes = require("./routes/operatorAssignmentRoute");
 const materialsRoutes = require("./routes/materialsRoute");
 const productionConfirmationRoutes = require("./routes/productionConfirmationRoute");
 const employeeInfoRoutes = require("./routes/employeeInfoRoute");
+const reportRoutes = require("./routes/reportRoute");
+const f4Routes = require("./routes/f4Route");
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +25,8 @@ app.use("/api/operatorAssignment", operatorAssignmentRoutes);
 app.use("/api/materials", materialsRoutes);
 app.use("/api/productionconfirmation", productionConfirmationRoutes);
 app.use("/api/employeeinfo", employeeInfoRoutes);
+app.use("/api/report", reportRoutes);
+app.use("/api/f4", f4Routes);
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

@@ -1,4 +1,4 @@
-const axios = require("axios");
+﻿const axios = require("axios");
 const https = require("https");
 const dotenv = require("dotenv");
 
@@ -9,7 +9,7 @@ exports.requestMaterials = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=${process.env.SAP_CLIENT}`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -47,7 +47,7 @@ exports.transferMaterials = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=${process.env.SAP_CLIENT}`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -85,7 +85,7 @@ exports.getReservation = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToItem,npToMatIssue,npToMatReceipts",
@@ -123,7 +123,7 @@ exports.getReservationList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToItem",
@@ -160,7 +160,7 @@ exports.printMaterialReceiptSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialReceiptSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=${process.env.SAP_CLIENT}`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         responseType: "arraybuffer",
@@ -194,7 +194,7 @@ exports.printMaterialIssueSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MaterialIssueSlipSet(materialDoc='${materialDoc}',materialDocYear='${materialDocYear}')/$value?sap-client=${process.env.SAP_CLIENT}`,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         responseType: "arraybuffer",
@@ -228,7 +228,7 @@ exports.printReservationSlip = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationSlipSet(reservationNumber='${reservationNumber}')/$value?sap-client=${process.env.SAP_CLIENT}`,
       {
         responseType: "arraybuffer",
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -262,7 +262,7 @@ exports.getConfirmationList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatReceiptHdrSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToItem",
@@ -299,7 +299,7 @@ exports.createReceiveConfirm = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=${process.env.SAP_CLIENT}`,
       body,
       {
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -335,7 +335,7 @@ exports.issueDetailByDocAndYear = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
@@ -371,7 +371,7 @@ exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
@@ -409,7 +409,7 @@ exports.getIssueList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToIssueItem",
@@ -447,7 +447,7 @@ exports.getReservationByNumber = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToItem/npToBatch",
@@ -484,7 +484,7 @@ exports.confirmMaterialReceipt = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=${process.env.SAP_CLIENT}`,
       body,
       {
         httpsAgent: new https.Agent({
@@ -522,7 +522,7 @@ exports.getMaterialIssue = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToIssue/npToIssueItem",
@@ -554,12 +554,125 @@ exports.getMaterialIssue = async (req, res) => {
   }
 };
 
+exports.createTransfer = async (req, res) => {
+  const body = req.body || {};
+
+  try {
+    const response = await axios.post(
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/TransferHdrSet?sap-client=${process.env.SAP_CLIENT}`,
+      body,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json({
+      response: response.data.d,
+      message: response.headers["sap-message"],
+    });
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
+    });
+  }
+};
+
+exports.getStockInfo = async (req, res) => {
+  const { plant, storageLocation, employeeId, sessionId } = req.query;
+
+  try {
+    const response = await axios.get(
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/StockSet?sap-client=${process.env.SAP_CLIENT}`,
+      {
+        params: {
+          $filter: `Werks eq '${plant}' and Lgort eq '${storageLocation}' and Bwart eq '311' and Empid eq '${employeeId}' and Sesid eq '${sessionId}'`,
+          $format: "json",
+        },
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
+    });
+  }
+};
+
+exports.verifyScanCheck = async (req, res) => {
+  const body = req.body || {};
+
+  try {
+    const response = await axios.post(
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ScanCheckSet?sap-client=${process.env.SAP_CLIENT}`,
+      body,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json({
+      response: response.data.d,
+      message: response.headers["sap-message"],
+    });
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
+    });
+  }
+};
+
 exports.getProdOrderMatList = async (req, res) => {
   const { employeeId, plant, sessionId, orderId } = req.params;
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $expand: "npToComponents",
@@ -590,3 +703,5 @@ exports.getProdOrderMatList = async (req, res) => {
     });
   }
 };
+
+

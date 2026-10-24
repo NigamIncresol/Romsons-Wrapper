@@ -1,4 +1,4 @@
-const axios = require("axios");
+﻿const axios = require("axios");
 const https = require("https");
 const dotenv = require("dotenv");
 
@@ -11,7 +11,7 @@ exports.loginUser = async (req, res) => {
     if (plant) payload.plant = plant;
 
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/AuthSet?sap-client=${process.env.SAP_CLIENT}`,
       payload,
       {
         httpsAgent: new https.Agent({
@@ -50,7 +50,7 @@ exports.logoutUser = async (req, res) => {
         employeeId +
         "',plant='" +
         plant +
-        "')?sap-client=690",
+        "')?sap-client=${process.env.SAP_CLIENT}",
       {
         employeeId: employeeId,
         sessionId: sessionId,
@@ -93,7 +93,7 @@ exports.changePassword = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ChangePasswordSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ChangePasswordSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         employeeId,
         oldPassword,
@@ -139,7 +139,7 @@ exports.forgotPasswordOTP = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         employeeID,
         Email,
@@ -187,7 +187,7 @@ exports.resetPasswordWithOTP = async (req, res) => {
         employeeID +
         "',plant='" +
         plant +
-        "')?sap-client=690",
+        "')?sap-client=${process.env.SAP_CLIENT}",
       {
         employeeID,
         Otp,
@@ -226,3 +226,4 @@ exports.resetPasswordWithOTP = async (req, res) => {
     });
   }
 };
+

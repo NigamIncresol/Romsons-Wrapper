@@ -1,4 +1,4 @@
-const axios = require("axios");
+﻿const axios = require("axios");
 const https = require("https");
 const dotenv = require("dotenv");
 
@@ -9,7 +9,7 @@ exports.getProductionOrders = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
@@ -45,7 +45,7 @@ exports.getProductionOrder = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet('${orderId}')?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
@@ -125,7 +125,7 @@ exports.releaseProdOrder = async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderListSet?sap-client=${process.env.SAP_CLIENT}`,
       { order, employeeId, sessionId, plant },
       {
         httpsAgent: new https.Agent({
@@ -160,7 +160,7 @@ exports.getJobCardList = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $format: "json",
@@ -195,7 +195,7 @@ exports.printJobCard = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardSet(order='${order}',shiftId='${shiftId}',shiftDt=datetime'${shiftDate}')/$value?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardSet(order='${order}',shiftId='${shiftId}',shiftDt=datetime'${shiftDate}')/$value?sap-client=${process.env.SAP_CLIENT}`,
       {
         responseType: "arraybuffer",
         httpsAgent: new https.Agent({
@@ -231,7 +231,7 @@ exports.getProductionOrderSummary = async (req, res) => {
 
   try {
     const response = await axios.get(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderSummaryListSet?sap-client=690`,
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/prodOrderSummaryListSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
           $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}'`,
@@ -261,3 +261,4 @@ exports.getProductionOrderSummary = async (req, res) => {
     });
   }
 };
+

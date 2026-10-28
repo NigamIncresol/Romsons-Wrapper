@@ -32,10 +32,12 @@ exports.getProductionOrders = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order list",
+      message: sapMessage,
     });
   }
 };
@@ -68,10 +70,12 @@ exports.getProductionOrder = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order",
+      message: sapMessage,
     });
   }
 };
@@ -105,10 +109,12 @@ exports.getProductionOrderFilterValues = async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order filter values",
+      message: sapMessage,
     });
   }
 };
@@ -147,10 +153,12 @@ exports.releaseProdOrder = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to release production order",
+      message: sapMessage,
     });
   }
 };
@@ -182,10 +190,12 @@ exports.getJobCardList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch job card list",
+      message: sapMessage,
     });
   }
 };
@@ -218,10 +228,12 @@ exports.printJobCard = async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to print job card",
+      message: sapMessage,
     });
   }
 };
@@ -254,11 +266,16 @@ exports.getProductionOrderSummary = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order summary",
+      message: sapMessage,
     });
   }
 };
+
+
+
 

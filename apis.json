@@ -849,6 +849,19 @@
   },
   {
     "app": "Production Confirmation",
+    "name": "Bulk Operator Assign",
+    "method": "POST",
+    "implemented": true,
+    "endpoint": "/api/productionconfirmation/bulkoperatorassign",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=690",
+    "requestBody": "full payload passed as-is from frontend",
+    "response": {
+      "response": "SAP response data",
+      "message": "sap-message header"
+    }
+  },
+  {
+    "app": "Production Confirmation",
     "name": "Submit Order For GRN",
     "method": "POST",
     "implemented": true,

@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const productionConfirmationController = require("../controllers/productionConfirmationController");
 
+router.post("/bulkoperatorassign", async (req, res) => {
+  console.log("🟢 Bulk Operator Assign request received", "/productionconfirmation/bulkoperatorassign");
+  await productionConfirmationController.bulkOperatorAssign(req, res);
+});
+
 router.post("/submitorderforgrn", async (req, res) => {
   console.log(
     "🟢 Submit Order For GRN request received",

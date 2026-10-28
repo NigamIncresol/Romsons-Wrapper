@@ -28,11 +28,16 @@ exports.getEmployeeInfo = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch employee info",
+      message: sapMessage,
     });
   }
 };
+
+
+
 

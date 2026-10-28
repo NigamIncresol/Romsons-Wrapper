@@ -31,11 +31,13 @@ exports.getOperationList = async (req, res) => {
 
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch operation list",
+      message: sapMessage,
     });
   }
 };
@@ -67,11 +69,13 @@ exports.getOperatorList = async (req, res) => {
 
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch operator list",
+      message: sapMessage,
     });
   }
 };
@@ -103,11 +107,13 @@ exports.getShiftList = async (req, res) => {
 
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch shift list",
+      message: sapMessage,
     });
   }
 };
@@ -140,11 +146,13 @@ exports.getOperatorAssignmentList = async (req, res) => {
 
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch operator assignment list",
+      message: sapMessage,
     });
   }
 };
@@ -209,11 +217,11 @@ exports.updateOperatorAssignment = async (req, res) => {
 
     return res.status(204).send();
   } catch (error) {
-    console.error("Error:", error);
-    return res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    return res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to update operator assignment",
+      message: error?.response?.data?.error?.message?.value ?? error?.response?.data ?? error?.message,
     });
   }
 };
@@ -281,12 +289,15 @@ exports.assignOperator = async (req, res) => {
     // SAP OData typically wraps result in response.data.d, but keep fallback
     return res.status(200).json(response.data?.d ?? response.data);
   } catch (error) {
-    console.error("Error:", error);
-    return res.status(500).json({
+    console.error("Error:", error.response?.data || error.message);
+    return res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to assign operator",
+      message: error?.response?.data?.error?.message?.value ?? error?.response?.data ?? error?.message,
     });
   }
 };
+
+
+
 

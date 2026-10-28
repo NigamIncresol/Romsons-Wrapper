@@ -34,10 +34,12 @@ exports.requestMaterials = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to request materials",
+      message: sapMessage,
     });
   }
 };
@@ -72,10 +74,12 @@ exports.transferMaterials = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to transfer materials",
+      message: sapMessage,
     });
   }
 };
@@ -110,10 +114,12 @@ exports.getReservation = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch reservation",
+      message: sapMessage,
     });
   }
 };
@@ -147,10 +153,12 @@ exports.getReservationList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch reservation list",
+      message: sapMessage,
     });
   }
 };
@@ -181,10 +189,12 @@ exports.printMaterialReceiptSlip = async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to print material receipt slip",
+      message: sapMessage,
     });
   }
 };
@@ -215,10 +225,12 @@ exports.printMaterialIssueSlip = async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to print material issue slip",
+      message: sapMessage,
     });
   }
 };
@@ -249,10 +261,12 @@ exports.printReservationSlip = async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to print reservation slip",
+      message: sapMessage,
     });
   }
 };
@@ -286,10 +300,12 @@ exports.getConfirmationList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch confirmation list",
+      message: sapMessage,
     });
   }
 };
@@ -322,16 +338,19 @@ exports.createReceiveConfirm = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to create material issue",
+      message: sapMessage,
     });
   }
 };
 
 exports.issueDetailByDocAndYear = async (req, res) => {
   const { materialDoc, materialDocYear } = req.params;
+  const { empid, sesid } = req.query;
 
   try {
     const response = await axios.get(
@@ -339,7 +358,7 @@ exports.issueDetailByDocAndYear = async (req, res) => {
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
-          $filter: `materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}'`,
+          $filter: `materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}' and employeeId eq '${empid}' and sessionId eq '${sesid}'`,
           $format: "json",
         },
         httpsAgent: new https.Agent({ rejectUnauthorized: false }),
@@ -358,10 +377,12 @@ exports.issueDetailByDocAndYear = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch issue detail",
+      message: sapMessage,
     });
   }
 };
@@ -396,10 +417,12 @@ exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch issue details",
+      message: sapMessage,
     });
   }
 };
@@ -434,10 +457,12 @@ exports.getIssueList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch issue list",
+      message: sapMessage,
     });
   }
 };
@@ -471,10 +496,12 @@ exports.getReservationByNumber = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch reservations",
+      message: sapMessage,
     });
   }
 };
@@ -509,10 +536,12 @@ exports.confirmMaterialReceipt = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to confirm material receipt",
+      message: sapMessage,
     });
   }
 };
@@ -546,10 +575,12 @@ exports.getMaterialIssue = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch material issue",
+      message: sapMessage,
     });
   }
 };
@@ -584,7 +615,7 @@ exports.createTransfer = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     const sapMessage = error?.response?.data?.error?.message?.value
       ?? error?.response?.data ?? error?.message;
-    res.status(500).json({
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
       message: sapMessage,
@@ -621,7 +652,7 @@ exports.getStockInfo = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     const sapMessage = error?.response?.data?.error?.message?.value
       ?? error?.response?.data ?? error?.message;
-    res.status(500).json({
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
       message: sapMessage,
@@ -659,7 +690,7 @@ exports.verifyScanCheck = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     const sapMessage = error?.response?.data?.error?.message?.value
       ?? error?.response?.data ?? error?.message;
-    res.status(500).json({
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
       message: sapMessage,
@@ -696,12 +727,17 @@ exports.getProdOrderMatList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order material list",
+      message: sapMessage,
     });
   }
 };
+
+
+
 
 

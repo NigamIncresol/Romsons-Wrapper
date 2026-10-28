@@ -66,7 +66,7 @@ exports.getOperatorPerformance = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     const sapMessage = error?.response?.data?.error?.message?.value
       ?? error?.response?.data ?? error?.message;
-    res.status(500).json({
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
       message: sapMessage,
@@ -119,11 +119,13 @@ exports.getPlannedData = async (req, res) => {
     console.error("Error:", error.response?.data || error.message);
     const sapMessage = error?.response?.data?.error?.message?.value
       ?? error?.response?.data ?? error?.message;
-    res.status(500).json({
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
       message: sapMessage,
     });
   }
 };
+
+
 

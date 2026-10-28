@@ -5,6 +5,44 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 
+exports.bulkOperatorAssign = async (req, res) => {
+  const body = req.body || {};
+
+  try {
+    const response = await axios.post(
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/JobCardListSet?sap-client=${process.env.SAP_CLIENT}`,
+      body,
+      {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "X-Requested-With": "X",
+          "sap-language": "EN",
+        },
+        auth: {
+          username: process.env.SAP_USER,
+          password: process.env.SAP_PASS,
+        },
+      },
+    );
+
+    res.json({
+      response: response.data.d,
+      message: response.headers["sap-message"],
+    });
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
+    });
+  }
+};
+
 exports.submitOrderForGRN = async (req, res) => {
   const body = req.body || {};
 
@@ -33,10 +71,12 @@ exports.submitOrderForGRN = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to submit order for GRN",
+      message: sapMessage,
     });
   }
 };
@@ -69,10 +109,12 @@ exports.getProdOrderConfirmList = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch production order confirm list",
+      message: sapMessage,
     });
   }
 };
@@ -105,10 +147,12 @@ exports.submitOrderConfirmation = async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to submit order confirmation",
+      message: sapMessage,
     });
   }
 };
@@ -147,10 +191,12 @@ exports.getActivityDetails = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch activity details",
+      message: sapMessage,
     });
   }
 };
@@ -191,10 +237,12 @@ exports.getComponentBatchDetails = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch component batch details",
+      message: sapMessage,
     });
   }
 };
@@ -233,10 +281,12 @@ exports.getConsumptionDetails = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch consumption details",
+      message: sapMessage,
     });
   }
 };
@@ -269,10 +319,12 @@ exports.getJobCardDetails = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch job card details",
+      message: sapMessage,
     });
   }
 };
@@ -305,11 +357,16 @@ exports.getOrderDetails = async (req, res) => {
     res.json(response.data.d);
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
-    res.status(500).json({
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
       success: false,
       error: error?.response?.data ?? error?.message,
-      message: "Failed to fetch order details",
+      message: sapMessage,
     });
   }
 };
+
+
+
 

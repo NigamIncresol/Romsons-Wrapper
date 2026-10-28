@@ -33,10 +33,13 @@ exports.loginUser = async (req, res) => {
     // console.log("Response:", response.data);
     res.json(response.data.d);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
-      message: "Login failed",
-      error: error.response?.data || error.message,
+    console.error("Error:", error.response?.data || error.message);
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
     });
   }
 };
@@ -80,9 +83,12 @@ exports.logoutUser = async (req, res) => {
   } catch (error) {
     console.error("Logout Error:", error.response?.data || error.message);
 
-    res.status(500).json({
-      message: "Logout failed",
-      error: error.response?.data || error.message,
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
     });
   }
 };
@@ -127,9 +133,12 @@ exports.changePassword = async (req, res) => {
       error.response?.data || error.message,
     );
 
-    res.status(500).json({
-      message: "Change password failed",
-      error: error.response?.data || error.message,
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
     });
   }
 };
@@ -171,9 +180,12 @@ exports.forgotPasswordOTP = async (req, res) => {
       error.response?.data || error.message,
     );
 
-    res.status(500).json({
-      message: "Failed to send OTP / forgot password request",
-      error: error.response?.data || error.message,
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
     });
   }
 };
@@ -183,11 +195,7 @@ exports.resetPasswordWithOTP = async (req, res) => {
 
   try {
     const response = await axios.put(
-      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet(employeeID='` +
-        employeeID +
-        "',plant='" +
-        plant +
-        "')?sap-client=${process.env.SAP_CLIENT}",
+      `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/ForgotPasswordSet(employeeID='${employeeID}',plant='${plant}')?sap-client=${process.env.SAP_CLIENT}`,
       {
         employeeID,
         Otp,
@@ -220,10 +228,16 @@ exports.resetPasswordWithOTP = async (req, res) => {
       error.response?.data || error.message,
     );
 
-    res.status(500).json({
-      message: "OTP verification / password reset failed",
-      error: error.response?.data || error.message,
+    const sapMessage = error?.response?.data?.error?.message?.value
+      ?? error?.response?.data ?? error?.message;
+    res.status(error?.response?.status || 500).json({
+      success: false,
+      error: error?.response?.data ?? error?.message,
+      message: sapMessage,
     });
   }
 };
+
+
+
 

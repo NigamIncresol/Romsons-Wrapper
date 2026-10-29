@@ -43,14 +43,14 @@ exports.getOperationList = async (req, res) => {
 };
 
 exports.getOperatorList = async (req, res) => {
-  const { plant, houseId, shiftId, employeeId, sessionId } = req.params;
+  const { plant, houseId, shiftId, employeeId, sessionId, shiftDate } = req.params;
 
   try {
     const response = await axios.get(
       `${process.env.SAP_BASE_URL}/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=${process.env.SAP_CLIENT}`,
       {
         params: {
-          $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}' and employeeId eq '${employeeId}' and sessionId eq '${sessionId}'`,
+          $filter: `plant eq '${plant}' and houseId eq '${houseId}' and shiftId eq '${shiftId}' and shiftDate eq datetime'${shiftDate}' and employeeId eq '${employeeId}' and sessionId eq '${sessionId}'`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,

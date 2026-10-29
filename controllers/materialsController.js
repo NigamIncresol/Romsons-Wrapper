@@ -85,7 +85,7 @@ exports.transferMaterials = async (req, res) => {
 };
 
 exports.getReservation = async (req, res) => {
-  const { reservationNumber } = req.params;
+  const { employeeId, plant, sessionId, reservationNumber } = req.params;
 
   try {
     const response = await axios.get(
@@ -93,7 +93,7 @@ exports.getReservation = async (req, res) => {
       {
         params: {
           $expand: "npToItem,npToMatIssue,npToMatReceipts",
-          $filter: `reservationNumber eq '${reservationNumber}'`,
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}' and reservationNumber eq '${reservationNumber}'`,
           $format: "json",
         },
         httpsAgent: new https.Agent({
@@ -388,7 +388,7 @@ exports.issueDetailByDocAndYear = async (req, res) => {
 };
 
 exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
-  const { materialDoc, materialDocYear } = req.params;
+  const { employeeId, plant, sessionId, materialDoc, materialDocYear } = req.params;
 
   try {
     const response = await axios.get(
@@ -396,7 +396,7 @@ exports.getSingleIssueDetailsByMatDocAndYear = async (req, res) => {
       {
         params: {
           $expand: "npToIssueItem,npToReceipts",
-          $filter: `materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}'`,
+          $filter: `employeeId eq '${employeeId}' and plant eq '${plant}' and sessionId eq '${sessionId}' and materialDoc eq '${materialDoc}' and materialDocYear eq '${materialDocYear}'`,
           $format: "json",
         },
         httpsAgent: new https.Agent({

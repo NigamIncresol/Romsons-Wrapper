@@ -18,7 +18,7 @@ router.get("/getShiftList/:plant", async (req, res) => {
   await operatorAssignmentController.getShiftList(req, res);
 });
 
-router.get("/getOperatorList/:employeeId/:plant/:sessionId/:houseId/:shiftId", async (req, res) => {
+router.get("/getOperatorList/:employeeId/:plant/:sessionId/:houseId/:shiftId/:shiftDate", async (req, res) => {
   console.log(
     "🟢 Get Operator List request received",
     "/operatorAssignment/getOperatorList",

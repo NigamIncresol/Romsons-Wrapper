@@ -443,9 +443,12 @@
     "name": "Get Reservation",
     "method": "GET",
     "implemented": true,
-    "endpoint": "/api/materials/getSingleReservation/:reservationNumber",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem,npToMatIssue,npToMatReceipts&$filter=reservationNumber eq '{reservationNumber}'&$format=json",
+    "endpoint": "/api/materials/getSingleReservation/:employeeId/:plant/:sessionId/:reservationNumber",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/ReservationHeaderSet?sap-client=690&$expand=npToItem,npToMatIssue,npToMatReceipts&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}' and reservationNumber eq '{reservationNumber}'&$format=json",
     "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string",
       "reservationNumber": "string"
     },
     "response": {
@@ -641,9 +644,12 @@
     "name": "Get Single Issue Details By Mat Doc And Year",
     "method": "GET",
     "implemented": true,
-    "endpoint": "/api/materials/getSingleIssueDetailsByMatDocAndYear/:materialDoc/:materialDocYear",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690&$expand=npToIssueItem,npToReceipts&$filter=materialDoc eq '{materialDoc}' and materialDocYear eq '{materialDocYear}'&$format=json",
+    "endpoint": "/api/materials/getSingleIssueDetailsByMatDocAndYear/:employeeId/:plant/:sessionId/:materialDoc/:materialDocYear",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/MatIssueHdrSet?sap-client=690&$expand=npToIssueItem,npToReceipts&$filter=employeeId eq '{employeeId}' and plant eq '{plant}' and sessionId eq '{sessionId}' and materialDoc eq '{materialDoc}' and materialDocYear eq '{materialDocYear}'&$format=json",
     "requestParams": {
+      "employeeId": "string",
+      "plant": "string",
+      "sessionId": "string",
       "materialDoc": "string",
       "materialDocYear": "string"
     },
@@ -1045,14 +1051,15 @@
     "name": "Get Operator List",
     "method": "GET",
     "implemented": true,
-    "endpoint": "/api/operatorAssignment/getOperatorList/:employeeId/:plant/:sessionId/:houseId/:shiftId",
-    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690&$filter=plant eq '{plant}' and houseId eq '{houseId}' and shiftId eq '{shiftId}' and employeeId eq '{employeeId}' and sessionId eq '{sessionId}'",
+    "endpoint": "/api/operatorAssignment/getOperatorList/:employeeId/:plant/:sessionId/:houseId/:shiftId/:shiftDate",
+    "odataV2Endpoint": "https://ROMSONS-DEV.romsons.com:8443/sap/opu/odata/sap/ZRAKSHITH20_SRV/OperatorSet?sap-client=690&$filter=plant eq '{plant}' and houseId eq '{houseId}' and shiftId eq '{shiftId}' and shiftDate eq datetime'{shiftDate}' and employeeId eq '{employeeId}' and sessionId eq '{sessionId}'",
     "requestParams": {
       "employeeId": "string",
       "plant": "string",
       "sessionId": "string",
       "houseId": "string",
-      "shiftId": "string"
+      "shiftId": "string",
+      "shiftDate": "string (ISO format: 2026-06-10T00:00:00)"
     },
     "response": {
       "results": [

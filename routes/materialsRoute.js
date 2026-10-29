@@ -18,7 +18,7 @@ router.post("/transferMaterials", async (req, res) => {
   await materialsController.transferMaterials(req, res);
 });
 
-router.get("/getSingleReservation/:reservationNumber", async (req, res) => {
+router.get("/getSingleReservation/:employeeId/:plant/:sessionId/:reservationNumber", async (req, res) => {
   console.log(
     "🟢 Get Single Reservation request received",
     "/materials/getSingleReservation",
@@ -79,7 +79,7 @@ router.get("/issueDetailByDocAndYear/:materialDoc/:materialDocYear", async (req,
   await materialsController.issueDetailByDocAndYear(req, res);
 });
 
-router.get("/getSingleIssueDetailsByMatDocAndYear/:materialDoc/:materialDocYear", async (req, res) => {
+router.get("/getSingleIssueDetailsByMatDocAndYear/:employeeId/:plant/:sessionId/:materialDoc/:materialDocYear", async (req, res) => {
   console.log(
     "🟢 Get Single Issue Details By Mat Doc And Year request received",
     "/materials/getSingleIssueDetailsByMatDocAndYear",
